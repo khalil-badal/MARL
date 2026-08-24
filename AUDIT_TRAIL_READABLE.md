@@ -51,7 +51,7 @@ The Research Gap paragraph ended with: "It cannot be determined whether reported
 ---
 
 ## 2026-08-06 — E2C6 — introduction.tex 1.2.1, methods.tex Baseline Controllers
-**Status:** ACTIVE (partial) — introduction.tex failure-modes paragraph survived; methods.tex NC/FH/EH sentences superseded
+**Status:** ACTIVE — all four additions verified present (NC/FH/EH sentences reworded in Texas pivot but functionally equivalent)
 
 **BEFORE (introduction.tex)**
 
@@ -106,7 +106,7 @@ Nothing existed between Figure 1.3's caption and the next paragraph, which start
 ---
 
 ## 2026-08-06 — E3C13 — introduction.tex Section 1.1, methods.tex Section 3.2.3
-**Status:** ACTIVE (partial) — introduction.tex NLE clarification survived; methods.tex GEH independence sentence superseded
+**Status:** SUPERSEDED — both sub-parts removed in Texas pivot (intro.tex NLEx paragraph inside `\iffalse`; methods.tex EDSA calibration sentence deleted)
 
 **BEFORE (introduction.tex)**
 
@@ -354,7 +354,21 @@ The paragraph right before the Table 1.2 summary jumped straight into: "Table 1.
 ---
 
 ## 2026-08-06 — E3C16 — figure/table callout sweep (introduction.tex, methods.tex)
-**Status:** ACTIVE (partial) — most callouts survived; some figure/table numbers shifted in Texas pivot
+**Status:** mixed — see per-callout breakdown below
+
+| # | Location | Status |
+|---|----------|--------|
+| 1 | intro: ridership figure callout | SUPERSEDED (inside `\iffalse`) |
+| 2 | intro: rainfall figure callout | SUPERSEDED (inside `\iffalse`) |
+| 3 | intro: CTDE figure callout | ACTIVE |
+| 4 | methods: pipeline figure callout | ACTIVE |
+| 5 | methods: GEH panel (a) callout | ACTIVE |
+| 6 | methods: RMSE panel (b) callout | ACTIVE |
+| 7 | methods: parameter-table reference sentence | SUPERSEDED (replaced by shorter phrasing) |
+| 8 | methods: observation-features table callout | ACTIVE |
+| 9 | methods: training-loop figure callout | ACTIVE |
+| 10 | methods: Stage A figure callout | SUPERSEDED (prose callout removed) |
+| 11 | methods: Stage B figure callout | SUPERSEDED (prose callout removed) |
 
 Ten short additions, each linking an existing sentence to a figure/table that was never explicitly named anywhere in the prose:
 
@@ -420,7 +434,12 @@ The "Required Datasets" bullet list (GPS location, boarding events, alighting ev
 ---
 
 ## 2026-08-06 — E3C17 — introduction.tex (Background), methods.tex (Weather-Induced Anomalies)
-**Status:** ACTIVE (partial) — corridor map figure and η-sweep table concept retained; specific EDSA content superseded by CapMetro equivalent
+**Status:** mixed — see per-addition breakdown below
+
+| # | Addition | Status |
+|---|----------|--------|
+| 1 | intro: EDSA corridor map figure | SUPERSEDED (inside `\iffalse`) |
+| 2 | methods: η-sweep basis table (tab:eta-basis) | ACTIVE |
 
 **BEFORE**
 

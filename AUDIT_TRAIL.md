@@ -40,7 +40,7 @@
 ---
 
 ## 2026-08-06 — E2C6 — introduction.tex 1.2.1, methods.tex Baseline Controllers
-**Status:** ACTIVE (partial) — introduction.tex failure-modes paragraph survived; methods.tex NC/FH/EH sentences superseded
+**Status:** ACTIVE — all four additions verified present (NC/FH/EH sentences reworded in Texas pivot but functionally equivalent)
 **Commit:** `34017d3` (entry backfilled)
 
 ```diff
@@ -99,7 +99,7 @@
 ---
 
 ## 2026-08-06 — E3C13 — introduction.tex Section 1.1, methods.tex Section 3.2.3
-**Status:** ACTIVE (partial) — introduction.tex NLE clarification survived; methods.tex GEH independence sentence superseded
+**Status:** SUPERSEDED — both sub-parts removed in Texas pivot (intro.tex NLEx paragraph inside `\iffalse`; methods.tex EDSA calibration sentence deleted)
 **Commit:** `34017d3` (entry backfilled)
 
 ```diff
@@ -412,7 +412,7 @@
 ---
 
 ## 2026-08-06 — E3C16 — figure/table callout sweep (introduction.tex, methods.tex)
-**Status:** ACTIVE (partial) — most callouts survived; some figure/table numbers shifted in Texas pivot
+**Status:** mixed — 6 ACTIVE, 5 SUPERSEDED (see AUDIT_TRAIL_READABLE.md for per-callout table)
 **Commit:** `b15ab23`
 
 Ten one-clause insertions, each adding a missing `\ref{}` to an existing sentence next to a previously-uncited figure/table:
@@ -523,7 +523,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — E3C17 — introduction.tex (Background), methods.tex (Weather-Induced Anomalies)
-**Status:** ACTIVE (partial) — corridor map figure and η-sweep table concept retained; specific EDSA content superseded by CapMetro equivalent
+**Status:** mixed — corridor map SUPERSEDED (inside `\iffalse`), η-sweep basis table ACTIVE
 **Commit:** `142502b`
 
 ```diff
