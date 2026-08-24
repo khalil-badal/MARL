@@ -178,7 +178,7 @@
 ---
 
 ## 2026-08-06 — E4C20 — methods.tex, Section 3.2.6 (four generator subsections)
-**Status:** ACTIVE
+**Status:** mixed — Passenger Demand and Bus Breakdowns sentences ACTIVE; Traffic Delays and Weather-Induced Anomalies sentences SUPERSEDED (those two subsections were rewritten in the Texas pivot). See AUDIT_TRAIL_READABLE.md for the per-generator table.
 **Commit:** `01c49bf`
 
 ```diff

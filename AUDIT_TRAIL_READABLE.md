@@ -211,33 +211,44 @@ The table is the parameter reference for this chapter. A TODO-VAL is a design va
 ---
 
 ## 2026-08-06 — E4C20 — methods.tex, Section 3.2.6 (four generator subsections)
-**Status:** ACTIVE
+**Status:** mixed — 2 of 4 sentences survived the Texas pivot
 
-Each of the four disturbance generator subsections had a BEFORE sentence describing the generator statistically, and the AFTER appends an implementation-mechanics sentence to it.
+| # | Generator | Status |
+|---|-----------|--------|
+| 1 | Passenger Demand | ACTIVE |
+| 2 | Traffic Delays | SUPERSEDED (subsection rewritten, sentence removed) |
+| 3 | Weather-Induced Anomalies | SUPERSEDED (subsection rewritten, sentence removed) |
+| 4 | Bus Breakdowns | ACTIVE |
 
-**Passenger Demand**
+Each of the four disturbance generator subsections had a BEFORE sentence describing the generator statistically, and the AFTER appended an implementation-mechanics sentence to it.
+
+**Passenger Demand (ACTIVE)**
 
 **BEFORE:** "Sampling occurs at the start of each simulation run, producing varied demand profiles across episodes."
 
 **AFTER:** "Sampling occurs at the start of each simulation run, producing varied demand profiles across episodes. **In implementation, the scaling factor f_d ~ N(1, σ_d²) is sampled once per episode at initialization and applied uniformly to every per-stop, per-time-of-day arrival rate for the duration of that simulated operating day, so all stops experience the same proportional demand shift within a single run while the shift itself varies across runs.**"
 
-**Traffic Delays**
+**Traffic Delays (SUPERSEDED)**
 
-**BEFORE:** "...clipped to [0.8, 1.2], representing typical daily congestion friction (Wang and Sun)."
+**BEFORE:** "Ordinary inter-stop travel time is sampled from the empirical T distribution for the current segment, time-of-day, and day-type stratum. If a separate corridor-wide stress test is retained, a speed scaling factor is sampled once per episode and clipped to [0.8, 1.2], representing typical daily congestion friction (Wang and Sun)."
 
-**AFTER:** "...clipped to [0.8, 1.2], representing typical daily congestion friction (Wang and Sun). **In implementation, the speed scaling factor f_s ~ N(1, σ_s²) is sampled once per episode and applied to the bus's mean cruising speed on every inter-stop segment traversal during that day, producing a uniformly slower or faster corridor for that run without segment-level variation beyond the calibrated baseline.**"
+**AFTER:** "Ordinary inter-stop travel time is sampled from the empirical T distribution for the current segment, time-of-day, and day-type stratum. If a separate corridor-wide stress test is retained, a speed scaling factor is sampled once per episode and clipped to [0.8, 1.2] (Wang and Sun). **In implementation, the speed scaling factor f_s ~ N(1, σ_s²) is sampled once per episode and applied to the bus's mean cruising speed on every inter-stop segment traversal during that day, producing a uniformly slower or faster corridor for that run without segment-level variation beyond the calibrated baseline.**"
 
-**Weather-Induced Anomalies**
+Current methods.tex Traffic Delays subsection was rewritten in the Texas pivot and no longer contains this sentence — it now reads: "Ordinary inter-stop travel time is sampled from the empirical T distribution for the current segment, time-of-day, and day-type stratum. If a separate corridor-wide stress test is retained, the speed scaling factor is sampled once per episode and clipped to [0.8, 1.2] (Wang and Sun); its standard deviation is a TODO-VAL and is not equal to either clip bound. T remains active when W or B is enabled."
 
-**BEFORE:** "...regardless of its meteorological label."
+**Weather-Induced Anomalies (SUPERSEDED)**
+
+**BEFORE:** "The mapping from η to a specific named weather severity...regardless of its meteorological label."
 
 **AFTER:** "...regardless of its meteorological label. **In implementation, when η > 0 a fresh travel-time sample T ~ LogNormal(μ_ln, σ_ln) is drawn independently for each bus at each inter-stop segment traversal during the episode, replacing the traffic-speed generator's output for that traversal; the lognormal parameters μ_ln and σ_ln are computed from the segment's empirical mean and the swept η via the method-of-moments equations given earlier.**"
 
-**Bus Breakdowns**
+Current methods.tex Weather-Induced Anomalies subsection was rewritten in the Texas pivot (now uses a composed weather factor applied on top of the traffic-speed distribution, T_W = T_0 · m(w) · F_W) and no longer contains this sentence.
 
-**BEFORE:** "...with a configurable rate lambda (notation table)."
+**Bus Breakdowns (ACTIVE)**
 
-**AFTER:** "...with a configurable rate lambda (notation table). **In implementation, at each discrete simulation timestep of length dt, a Bernoulli trial with probability λ · dt is evaluated independently for each active bus; a success removes that bus from the active agent set for the remainder of the simulated day.**"
+**BEFORE:** "Breakdowns are therefore a labeled synthetic stressor triggered at random times from a Poisson process with a configurable rate lambda (notation table)."
+
+**AFTER:** "Breakdowns are therefore a labeled synthetic stressor triggered at random times from a Poisson process with a configurable scenario rate lambda (notation table). **In implementation, at each discrete simulation timestep of length dt, a Bernoulli trial with probability λ · dt is evaluated independently for each active bus; a success removes that bus from the active agent set for the remainder of the simulated day.**"
 
 **Why:** RTC comment 20 — explain in detail how each disturbance scenario is actually simulated.
 
@@ -349,7 +360,7 @@ Same as BEFORE — the drafted block was removed entirely before any commit.
 
 **AFTER**
 
-"Clipped to [1, 3], **following the general Gaussian-clipped demand-scaling mechanism of Wang and Sun, though this study adopts a narrower clip than their [1, 10] range**. The upper bound of 3, corresponding to roughly a tripling of baseline boarding rates, **is this study's own choice, flagged to revisit against Wang and Sun's wider range during implementation, rather than a value drawn from prior work**."
+"The baseline empirical transit demand is perturbed each episode by a scaling factor sampled from a normal distribution and clipped to [1, 3], **following the general Gaussian-clipped demand-scaling mechanism of Wang and Sun, though this study adopts a narrower clip than their [1, 10] range**. The asymmetric clip focuses the test on demand surges rather than symmetric variation, since demand drops produce lightly loaded conditions that do not stress-test the controller. The upper bound of 3, corresponding to roughly a tripling of baseline boarding rates, **is this study's own choice (flagged to revisit against Wang and Sun's wider range during implementation) rather than a value drawn from prior work**."
 
 **Why:** checked against the actual paper. Their own equation clips the demand-scaling factor to [1, 10], not [1, 3] — and the "event let-outs" justification for the number 3 doesn't appear anywhere in their paper either. Kept the study's own [1, 3] choice, since changing it would be a real experimental redesign, not a citation fix, but stopped implying that specific number came from Wang and Sun.
 
@@ -404,15 +415,15 @@ Same as BEFORE — the drafted block was removed entirely before any commit.
 ## 2026-08-06 — E3C11 — figure caption attribution (introduction.tex, methods.tex)
 **Status:** ACTIVE
 
-**BEFORE** (example — Figure 1.3 caption ending)
+**BEFORE** (example — Figure 1.3 caption)
 
-"...across N agents, each acting on its own local observation o_i."
+"Comparison of single-agent and multi-agent formulations. (a) SARL: a centralized policy consumes the concatenated global state and outputs a joint action covering every bus. (b) MARL with parameter sharing: a single set of weights is shared across N agents, each acting on its own local observation o_i."
 
 (Same pattern for Figures 1.4, 3.1–3.5 — captions ended with no source attribution.)
 
-**AFTER** (example — Figure 1.3 caption ending)
+**AFTER** (example — Figure 1.3 caption)
 
-"...across N agents, each acting on its own local observation o_i. **Authors' illustration.**"
+"Comparison of single-agent and multi-agent formulations. (a) SARL: a centralized policy consumes the concatenated global state and outputs a joint action covering every bus. (b) MARL with parameter sharing: a single set of weights is shared across N agents, each acting on its own local observation o_i. **Authors' illustration.**"
 
 (Same "Authors' illustration." appended to all 7 original diagram captions. Figures 1.1 and 1.2 already had proper citations and were unchanged.)
 
@@ -521,19 +532,21 @@ This entry is a preamble-only change (no manuscript prose changed). See AUDIT_TR
 
 **Addition 1 — introduction.tex: corridor map figure (SUPERSEDED)**
 
-**BEFORE:** "Despite the gradual increase in demand..."
+**BEFORE:** "Despite the gradual increase in demand, the EDSA Bus Carousel still faces a lot of significant operational issues that affect the quality of bus routing."
 
 (No corridor map figure existed between the ridership figure and this sentence.)
 
-**AFTER:** "**Figure 1.3 shows the EDSA Carousel Southbound route from Monumento to PITX, the corridor this study is grounded in, together with the other public transport modes (jeepney, MRT, LRT, tricycle, UV/FX) that intersect it at each major stop.** [corridor map image] Despite the gradual increase in demand..."
+**AFTER:** "**Figure 1.3 shows the EDSA Carousel Southbound route from Monumento to PITX, the corridor this study is grounded in, together with the other public transport modes (jeepney, MRT, LRT, tricycle, UV/FX) that intersect it at each major stop.** [corridor map image, captioned: EDSA Carousel Southbound route (Monumento to PITX) with intersecting public transport modes at each stop. Authors' illustration, adapted from the group's defense presentation.] Despite the gradual increase in demand, the EDSA Bus Carousel still faces a lot of significant operational issues that affect the quality of bus routing."
 
 **Addition 2 — methods.tex: η-sweep basis table (ACTIVE)**
 
-**BEFORE:** "The mapping from η to a specific named weather severity..."
+**BEFORE:** "The synthetic factor is swept over η in {0.0, 0.3, 0.6, 1.0, 1.3}. Values through 1.0 span the range evaluated by Patil et al.; 1.3 is a deliberate extrapolation. None is assigned a rain-rate label. Observed ordinary-rain experiments are reported by their NOAA exposure definition rather than by η. The mapping from η to named weather severity is not established."
 
 (The η sweep values were explained in prose only — no summary table.)
 
-**AFTER:**
+**AFTER:** "The synthetic factor is swept over η in {0.0, 0.3, 0.6, 1.0, 1.3}. Values through 1.0 span the range evaluated by Patil et al.; 1.3 is a deliberate extrapolation. None is assigned a rain-rate label. Observed ordinary-rain experiments are reported by their NOAA exposure definition rather than by η.
+
+**Basis for each synthetic weather-stress intensity value (new table inserted here):**
 
 | η | Basis |
 |---|---|
@@ -543,7 +556,7 @@ This entry is a preamble-only change (no manuscript prose changed). See AUDIT_TR
 | 1.0 | Upper end of the published CV range; synthetic severe stress |
 | 1.3 | Beyond the published range; deliberate extreme extrapolation |
 
-"The mapping from η to named weather severity..."
+The mapping from η to named weather severity is not established."
 
 **Why:** RTC comment 17 — include figures/tables shown in the defense but missing from the manuscript. All 58 slides of the defense deck were reviewed against the manuscript; most content (SARL vs MARL, CTDE, calibration formulas, parameter notation, training-vs-execution protocol) duplicated what's already written — adding it again would just repeat existing material. These two were the genuinely new items. The corridor map specifically matches the example the RTC letter itself gave for what might be missing.
 
