@@ -707,7 +707,7 @@ This commit applies the full Texas CapMetro rewrite from Jared's branch (`datase
 
 ## 2026-08-24 — REWRITE of E3C8 — methods.tex, Section 3.2.6
 **Status:** ACTIVE
-**Commit:** (uncommitted — pending)
+**Commit:** `731e4b5`
 
 ```diff
 - \item \textbf{Stochastic demand (D):} the baseline, always-present day-to-day randomness in passenger arrivals, drawn from the calibrated per-(stop, time-of-day) demand distributions (Section~\ref{subsec:data-pipeline}). D is not a disturbance layered on top of a deterministic baseline; it \textit{is} the baseline stochastic environment, present in every run regardless of which other generators are active.
@@ -730,7 +730,7 @@ This commit applies the full Texas CapMetro rewrite from Jared's branch (`datase
 
 ## 2026-08-24 — REWRITE of citation fix: Rodriguez2023Cooperative — methods.tex, Section 3.2.7
 **Status:** ACTIVE
-**Commit:** (uncommitted — pending)
+**Commit:** `731e4b5`
 
 ```diff
 - The full action set is the Cartesian product of these two components: $|A_i| = 5 \times 2 = 10$ discrete actions per control event, allowing the agent to select a holding strength and a skip decision independently at each control event. This is a broader action space than Rodriguez et al.~\cite{Rodriguez2023Cooperative}, whose combined holding-and-skipping controller (DDQN-HA) instead selects among six \textit{mutually exclusive} actions: five holding strengths $\Omega = \{0.0, 0.1, 0.2, 0.3, 0.4\}$ (with $\omega = 0$ already covering the no-holding case) plus a single skip action. The discretized holding-strength set $\Omega$ adopted here matches theirs exactly. A continuous holding parameter $\alpha \in [0, 1]$ was considered, following Wang and Sun~\cite{Wangsun}, but rejected for two reasons. First, continuous actions require actor-critic algorithms, whose training instability compounds across the swept-disturbance evaluation budget. Second, real driver compliance with holding instructions is itself imperfect: Rodriguez et al.~\cite{Rodriguez2023Cooperative} model non-compliant drivers as departing after only 60--80\% of the instructed holding time, so continuous precision in $\alpha$ is not meaningful at deployment.
@@ -745,7 +745,7 @@ This commit applies the full Texas CapMetro rewrite from Jared's branch (`datase
 
 ## 2026-08-24 — REWRITE of citation fix: Wangsun — methods.tex, Section 3.2.6
 **Status:** ACTIVE
-**Commit:** (uncommitted — pending)
+**Commit:** `731e4b5`
 
 ```diff
 - The baseline empirical transit demand is perturbed each episode by a scaling factor sampled from $\mathcal{N}(1, \sigma_d^2)$ and clipped to $[1, 3]$, following the general Gaussian-clipped demand-scaling mechanism of Wang and Sun~\cite{Wangsun}, though this study adopts a narrower clip than their $[1, 10]$ range. The asymmetric clip focuses the test on demand surges rather than symmetric variation, since demand drops produce lightly loaded conditions that do not stress-test the controller. The upper bound of 3, corresponding to roughly a tripling of baseline boarding rates, is this study's own choice (\%TODO-VAL: revisit against Wang and Sun's wider range during implementation) rather than a value drawn from prior work. Sampling occurs at the start of each simulation run, producing varied demand profiles across episodes.
@@ -758,7 +758,7 @@ This commit applies the full Texas CapMetro rewrite from Jared's branch (`datase
 
 ## 2026-08-24 — REWRITE #2 of N1 — methods.tex, Section 3.2.7
 **Status:** ACTIVE
-**Commit:** (uncommitted — pending)
+**Commit:** `731e4b5`
 
 ```diff
 - This study establishes the overall reward structure for the hybrid action space by defining the three reward components and their additive formulation, while treating the corresponding weighting coefficients, together with their sensitivity analysis, as the implementation-phase deliverable under Expected Output 2.1. Although the component structure is fixed at this stage, the coefficients remain as placeholders to be determined during implementation through experimental evaluation.
