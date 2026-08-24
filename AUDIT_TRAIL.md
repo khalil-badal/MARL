@@ -10,12 +10,13 @@
 # plain-English companion (bold-highlighted instead of diff syntax).
 #
 # STATUS TAGS (added after entry header):
-#   ACTIVE          — the AFTER text is still present in the current .tex files
-#   ACTIVE (partial)— core content survived but some callouts/references were
-#                     removed or restructured during the Texas pivot
-#   SUPERSEDED      — the AFTER text was overwritten by a later change (usually
-#                     the 2026-08-24 Texas pivot); kept for history
-#   REVERTED        — the change was undone before it shipped
+#   ACTIVE      — the AFTER text is still present in the current .tex files
+#   SUPERSEDED  — the AFTER text was overwritten by a later change (usually
+#                 the 2026-08-24 Texas pivot); kept for history
+#   REVERTED    — the change was undone before it shipped
+#   mixed       — entry has multiple sub-changes with different statuses;
+#                 each is listed individually (see AUDIT_TRAIL_READABLE.md
+#                 for per-change tables)
 #
 # REWRITE WORKFLOW:
 #   When applying writing-style changes, a third diff block is added after

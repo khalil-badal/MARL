@@ -18,12 +18,12 @@
 # entry here in this BEFORE/AFTER format.
 #
 # STATUS TAGS (added after entry header):
-#   ACTIVE          — the AFTER text is still present in the current .tex files
-#   ACTIVE (partial)— core content survived but some callouts/references were
-#                     removed or restructured during the Texas pivot
-#   SUPERSEDED      — the AFTER text was overwritten by a later change (usually
-#                     the 2026-08-24 Texas pivot); kept for history
-#   REVERTED        — the change was undone before it shipped
+#   ACTIVE      — the AFTER text is still present in the current .tex files
+#   SUPERSEDED  — the AFTER text was overwritten by a later change (usually
+#                 the 2026-08-24 Texas pivot); kept for history
+#   REVERTED    — the change was undone before it shipped
+#   mixed       — entry has multiple sub-changes with different statuses;
+#                 each is listed individually in a table
 #
 # REWRITE WORKFLOW:
 #   When applying writing-style changes, a third block is added:
@@ -40,7 +40,7 @@
 
 **BEFORE**
 
-The Research Gap paragraph ended with: "It cannot be determined whether reported MARL gains persist, degrade gracefully, or collapse under realistic operating disturbances, which in turn blocks the transition of MARL bus scheduling from simulation to real urban transit deployment."
+"It cannot be determined whether reported MARL gains persist, degrade gracefully, or collapse under realistic operating disturbances, which in turn blocks the transition of MARL bus scheduling from simulation to real urban transit deployment."
 
 **AFTER**
 
@@ -80,13 +80,19 @@ Similar one-sentence additions were made to Forward Headway and Even Headway's s
 
 **BEFORE**
 
-The acceptance criterion was one sentence buried inside a longer paragraph: "The acceptance criterion is twofold: (i) mean passenger waiting time no worse than Even Headway (no statistically significant degradation at p < 0.05 with multiple-comparison correction), and ideally a statistically significant improvement; and (ii) a statistically significant reduction in headway coefficient of variation relative to No Control."
+"The acceptance criterion is twofold: (i) mean passenger waiting time no worse than Even Headway (no statistically significant degradation at p < 0.05 with multiple-comparison correction), and ideally a statistically significant improvement; and (ii) a statistically significant reduction in headway coefficient of variation relative to No Control."
 
 **AFTER**
 
-**The same two criteria, pulled out into a labeled, itemized callout box titled "Stage A acceptance criterion":** (i) mean passenger waiting time no worse than Even Headway, and (ii) a statistically significant reduction in headway coefficient of variation relative to No Control. Stage B's criterion sentence got the same treatment, pulled into its own "Stage B acceptance criterion" callout, wording unchanged.
+**Stage A acceptance criterion**
 
-**Why:** RTC comment 7 — describe what successful performance will look like, make it more visually prominent. No new thresholds were invented — only reformatting.
+**(i)** Mean passenger waiting time no worse than EH (no statistically significant degradation at p < 0.05 with multiple-comparison correction), and ideally a statistically significant improvement.
+
+**(ii)** A statistically significant reduction in headway coefficient of variation relative to NC.
+
+**Stage B acceptance criterion:** The MARL policy is reported as performing well under disturbance if its mean waiting time stays below that of the best-performing baseline across the full sweep, with statistical significance under the same correction as Stage A.
+
+**Why:** RTC comment 7 — describe what successful performance will look like, make it more visually prominent. No new thresholds were invented — only reformatted from inline sentence to labeled callout boxes.
 
 ---
 
@@ -95,11 +101,13 @@ The acceptance criterion was one sentence buried inside a longer paragraph: "The
 
 **BEFORE**
 
-Nothing existed between Figure 1.3's caption and the next paragraph, which started directly with: "Multi-Agent Reinforcement Learning (MARL) addresses the three limitations above by decomposing decision-making across multiple agents that share the environment."
+"Multi-Agent Reinforcement Learning (MARL) addresses the three limitations above by decomposing decision-making across multiple agents that share the environment."
+
+(No text existed between Figure 1.3's caption and this sentence.)
 
 **AFTER**
 
-**"In both panels of Figure 1.3, the per-bus state (the same thing methods.tex calls s_i,t in its formal notation, shown in the figure as the local observation o_i) encodes the bus's current position, forward and backward headways, onboard load, and queue length at its current stop, as defined in full in the State Space section. The action is the holding-strength and stop-skipping decision the controller emits for that bus, defined in the Action Space section. In the SARL panel (a), a single centralized network ingests all N per-bus state vectors concatenated into one global state and outputs all N actions simultaneously; in the MARL panel (b), the same shared network weights instead process each bus's local state independently, so each agent acts on only its own observation rather than the concatenated global one."** "Multi-Agent Reinforcement Learning (MARL) addresses the three limitations above by decomposing decision-making across multiple agents that share the environment."
+"**In both panels of Figure 1.3, the per-bus state (the same thing methods.tex calls s_i,t in its formal notation, shown in the figure as the local observation o_i) encodes the bus's current position, forward and backward headways, onboard load, and queue length at its current stop, as defined in full in the State Space section. The action is the holding-strength and stop-skipping decision the controller emits for that bus, defined in the Action Space section. In the SARL panel (a), a single centralized network ingests all N per-bus state vectors concatenated into one global state and outputs all N actions simultaneously; in the MARL panel (b), the same shared network weights instead process each bus's local state independently, so each agent acts on only its own observation rather than the concatenated global one.** Multi-Agent Reinforcement Learning (MARL) addresses the three limitations above by decomposing decision-making across multiple agents that share the environment."
 
 **Why:** RTC comment 12 — explain the concepts in Figure 1.3 (bus states and actions).
 
@@ -133,19 +141,23 @@ Nothing existed between Figure 1.3's caption and the next paragraph, which start
 
 **BEFORE**
 
-The "Stochastic Disturbance Generators" section opened straight into a paragraph about the four generators following Wang and Sun, Patil et al., and Cao et al., with a pointer to the notation table. No explicit definitions of the disturbance classes came first.
+"Four stochastic generators inject variability into the Python environment. Generators (i) and (ii) follow the perturbation framework of Wang and Sun; the weather generator's heavy-tailed lognormal formulation follows Patil et al.; the breakdown generator follows the rescheduling formulation of Cao et al. The notation table collects the symbols used across this section and the MARL formulation that follows."
+
+(No definitions of the individual disturbance classes preceded this paragraph.)
 
 **AFTER**
 
-**A new "Disturbance Classes and Independence" block was inserted before that paragraph, defining five disturbance classes as a bulleted list:**
+"**This study distinguishes five disturbance classes, denoted D, S, T, W, and B:**
 
 - **Stochastic demand (D):** the baseline, always-present day-to-day randomness in passenger arrivals, drawn from the calibrated per-stop, per-time-of-day demand distributions. D is not a disturbance layered on top of a deterministic baseline — it IS the baseline stochastic environment, present in every run regardless of which other generators are active.
-- **Demand surge (S):** an episode-level scaling factor that amplifies baseline boarding rates above their empirical mean. S is the controlled experimental variable; D is always present, and S is added on top of it.
+- **Demand surge (S):** an episode-level multiplicative scaling factor that amplifies baseline boarding rates above their empirical mean. S is the controlled experimental variable; D is always present, and S is what is added on top of it. Setting the standard deviation to 0 removes the surge and leaves only baseline demand variability (D).
 - **Traffic-speed perturbation (T):** an episode-level scaling of corridor cruising speed, representing everyday congestion friction.
-- **Weather-induced delay (W):** a per-segment travel-time distribution drawn from a right-skewed lognormal. W replaces T once the weather intensity parameter exceeds zero.
-- **Discrete bus breakdown (B):** a Poisson-distributed discrete event that permanently removes one bus from the active agent set.
+- **Weather-induced delay (W):** a per-segment travel-time distribution drawn from a right-skewed lognormal. W replaces T as the source of travel-time stochasticity once the intensity parameter exceeds zero.
+- **Discrete bus breakdown (B):** a Poisson-distributed discrete event, with rate lambda, that permanently removes one bus from the active agent set for the remainder of the simulated day.
 
-Followed by a paragraph stating the four generators (S, T, W, B) are injected independently with no causal chain — a breakdown doesn't trigger a demand surge or weather delay, and a weather event doesn't cause a mechanical failure — while acknowledging some disturbances do co-occur causally in reality, but this study treats each as independent to isolate individual and combined effects.
+The generators that produce S, W, and B are sampled independently conditional on the always-active D and T baselines: no causal chain links them within the simulation. A breakdown does not trigger a demand surge or weather delay, and weather does not induce a mechanical failure. This factorial choice supports attribution in the single-disturbance ablations; it is not a claim that real disturbances are causally independent.**
+
+Four stochastic generators inject variability into the Python environment..."
 
 **Why:** RTC comment 8 — define each disturbance explicitly, clarify independence, distinguish stochastic demand from demand surge.
 
@@ -156,15 +168,43 @@ Followed by a paragraph stating the four generators (S, T, W, B) are injected in
 
 **BEFORE**
 
-Section 3.2.4 ended with "A condition is a state of the world; a controller is a choice of algorithm." and moved straight into the "Data Processing" section. No summary table of simulation parameters existed anywhere.
+"A condition is a state of the world; a controller is a choice of algorithm."
+
+(Then moved straight into the "Data Processing" section — no parameter summary table existed.)
 
 **AFTER**
 
-**A new table titled "Simulation parameter summary: fixed, swept/variable, and derived parameters" was inserted, with three groups:**
+"A condition is a state of the world; a controller is a choice of algorithm.
 
-- **Fixed:** simulation horizon (hours TBD), stop count (24, reused from Section 1.2.2), fleet size (approximately 12–30, same source), control stop count (TBD), scheduled headway (TBD), bus capacity (TBD), max holding duration (TBD), holding bins (0.0, 0.1, 0.2, 0.3, 0.4), action space size (10), Monte Carlo runs (at least 30), discount parameters (TBD).
-- **Swept/variable:** weather intensity (0.0, 0.3, 0.6, 1.0, 1.3), demand scaling clip (1 to 3), traffic-speed scaling clip (0.8 to 1.2), breakdown rate (TBD).
-- **Derived (from SUMO calibration):** baseline travel time and its standard deviation (both TBD), baseline coefficient of variation (TBD), lognormal shape/location parameters (computed via formulas already given elsewhere).
+**Simulation parameter summary: fixed, swept/variable, and derived parameters (new table inserted here)**
+
+| Parameter | Symbol | Value / Source |
+|---|---|---|
+| *Fixed* | | |
+| Simulation horizon | — | Single observed Route 801 service window (TODO-DATA) |
+| Total distinct stop IDs (direction code 6) | M | 29 (reproduced from CapMetro APC audit) |
+| Fleet size (active buses) | N | TODO-DATA: derive from concurrent Route 801 vehicle activity |
+| Control stop count | — | TODO-VAL: select from 29 observed stop IDs |
+| Scheduled headway | H₀ | TODO-DATA: 2021-compatible GTFS or schedule record |
+| Bus passenger capacity | — | TODO-DATA: verified vehicle/fleet specification |
+| Maximum holding duration | ΔT | TODO-VAL: to be set during implementation |
+| Holding action bins | Ω | {0.0, 0.1, 0.2, 0.3, 0.4} |
+| Action space size per agent | \|Aᵢ\| | 10 (5 hold × 2 skip) |
+| Monte Carlo runs per cell | N_runs | ≥ 30 |
+| Discount / event-based discount | γ, β | TODO-VAL: tuned during implementation |
+| *Swept / variable* | | |
+| Synthetic severe-weather intensity | η | {0.0, 0.3, 0.6, 1.0, 1.3} |
+| Demand-surge scale | f_d | N(1, σ_d²) clipped to [1, 3] |
+| Traffic-speed stress scale | f_s | N(1, σ_s²) clipped to [0.8, 1.2] |
+| Breakdown rate | λ | TODO-VAL: declared scenario rate |
+| *Derived empirical/calibration* | | |
+| Baseline inter-stop travel time | μ | Per-segment, time-of-day, day-type bin (to be computed) |
+| Baseline travel-time std. dev. | σ | Per-segment, time-of-day, day-type bin (to be computed) |
+| Baseline coefficient of variation | CV₀ | σ/μ per segment (TODO-DATA) |
+| Lognormal shape parameter | σ_ln | √(ln(η²+1)) |
+| Lognormal unit-mean factor location | μ_ln | −σ_ln²/2 |
+
+The table is the parameter reference for this chapter. A TODO-VAL is a design value still requiring an explicitly justified experimental choice; a TODO-DATA is a value blocked on an external source or unfinished empirical derivation."
 
 **Why:** RTC comment 15 — summarize fixed and variable simulation parameters with target values.
 
@@ -173,23 +213,31 @@ Section 3.2.4 ended with "A condition is a state of the world; a controller is a
 ## 2026-08-06 — E4C20 — methods.tex, Section 3.2.6 (four generator subsections)
 **Status:** ACTIVE
 
-Added one implementation-mechanics sentence to each of the four disturbance generator descriptions, explaining exactly when the random value is sampled and how it's applied. Before each addition, the paragraph described what the generator represents statistically but never said when or how the sampling actually happens during a run.
+Each of the four disturbance generator subsections had a BEFORE sentence describing the generator statistically, and the AFTER appends an implementation-mechanics sentence to it.
 
-**Passenger Demand — sentence added:**
+**Passenger Demand**
 
-**"In implementation, the scaling factor is sampled once per episode at initialization and applied uniformly to every per-stop, per-time-of-day arrival rate for the duration of that simulated operating day, so all stops experience the same proportional demand shift within a single run while the shift itself varies across runs."**
+**BEFORE:** "Sampling occurs at the start of each simulation run, producing varied demand profiles across episodes."
 
-**Traffic Delays — sentence added:**
+**AFTER:** "Sampling occurs at the start of each simulation run, producing varied demand profiles across episodes. **In implementation, the scaling factor f_d ~ N(1, σ_d²) is sampled once per episode at initialization and applied uniformly to every per-stop, per-time-of-day arrival rate for the duration of that simulated operating day, so all stops experience the same proportional demand shift within a single run while the shift itself varies across runs.**"
 
-**"In implementation, the speed scaling factor is sampled once per episode and applied to the bus's mean cruising speed on every inter-stop segment traversal during that day, producing a uniformly slower or faster corridor for that run without segment-level variation beyond the calibrated baseline."**
+**Traffic Delays**
 
-**Weather-Induced Anomalies — sentence added:**
+**BEFORE:** "...clipped to [0.8, 1.2], representing typical daily congestion friction (Wang and Sun)."
 
-**"In implementation, when the weather intensity parameter is greater than zero, a fresh travel-time sample is drawn independently for each bus at each inter-stop segment traversal during the episode, replacing the traffic-speed generator's output for that traversal; the lognormal parameters are computed from the segment's empirical mean and the swept intensity value via the method-of-moments equations given earlier."**
+**AFTER:** "...clipped to [0.8, 1.2], representing typical daily congestion friction (Wang and Sun). **In implementation, the speed scaling factor f_s ~ N(1, σ_s²) is sampled once per episode and applied to the bus's mean cruising speed on every inter-stop segment traversal during that day, producing a uniformly slower or faster corridor for that run without segment-level variation beyond the calibrated baseline.**"
 
-**Bus Breakdowns — sentence added:**
+**Weather-Induced Anomalies**
 
-**"In implementation, at each discrete simulation timestep, a Bernoulli trial (a weighted coin flip) with probability lambda times the timestep length is evaluated independently for each active bus; a 'heads' removes that bus from the active agent set for the remainder of the simulated day."**
+**BEFORE:** "...regardless of its meteorological label."
+
+**AFTER:** "...regardless of its meteorological label. **In implementation, when η > 0 a fresh travel-time sample T ~ LogNormal(μ_ln, σ_ln) is drawn independently for each bus at each inter-stop segment traversal during the episode, replacing the traffic-speed generator's output for that traversal; the lognormal parameters μ_ln and σ_ln are computed from the segment's empirical mean and the swept η via the method-of-moments equations given earlier.**"
+
+**Bus Breakdowns**
+
+**BEFORE:** "...with a configurable rate lambda (notation table)."
+
+**AFTER:** "...with a configurable rate lambda (notation table). **In implementation, at each discrete simulation timestep of length dt, a Bernoulli trial with probability λ · dt is evaluated independently for each active bus; a success removes that bus from the active agent set for the remainder of the simulated day.**"
 
 **Why:** RTC comment 20 — explain in detail how each disturbance scenario is actually simulated.
 
@@ -200,23 +248,35 @@ Added one implementation-mechanics sentence to each of the four disturbance gene
 
 **BEFORE (3.2.9 opening)**
 
-"For each (control strategy, disturbance level) cell, at least 30 independent Monte Carlo runs are executed using matched random seeds across strategies. Three response variables are logged per run: mean passenger waiting time, mean total travel time, and headway coefficient of variation." No formal definition of what those three metrics actually mean followed.
+"For each (control strategy, disturbance level) cell, at least 30 independent Monte Carlo runs are executed using matched random seeds across strategies. Three response variables are logged per run: mean passenger waiting time, mean total travel time, and headway coefficient of variation."
 
 **AFTER (3.2.9 opening)**
 
-**A new opening was added before that sentence, defining each metric formally:**
-
-- **Mean passenger waiting time:** the average time from a passenger's arrival at a stop to their successful boarding, averaged across all passengers and stops over one simulated day.
-- **Mean total travel time:** the average elapsed time from a bus's departure from the origin terminal to its arrival at the final stop, averaged across all completed trips.
-- **Headway coefficient of variation:** standard deviation of inter-bus headways divided by their mean. Zero means perfectly regular headways; larger values mean worse bunching. Mirrors the same coefficient-of-variation definition already used for travel time elsewhere in the chapter.
+"**The three response variables logged per run are defined as follows. Mean passenger waiting time (W̄) is the average time elapsed from a passenger's arrival at a stop to their successful boarding, averaged across all passengers served and all stops over one simulated operating day: W̄ = (1/P) Σ (t_board − t_arrive), where P is the total number of passengers served. Mean total travel time (T̄) is the average elapsed time from a bus's departure from the origin terminal to its arrival at the final stop of the sub-corridor, averaged across all bus trips completed during the simulated day. Headway coefficient of variation (CV_h) measures headway regularity: CV_h = σ_h / μ_h, where σ_h and μ_h are the standard deviation and mean of observed inter-bus headways. CV_h = 0 denotes perfectly regular headways; larger values indicate increasing bunching severity.** For each (control strategy, condition) cell, N_runs ≥ 30 independent Monte Carlo runs are executed using matched random seeds across strategies."
 
 **BEFORE (3.2.7 State Space, end of bullet list)**
 
-The observation-vector bullet list (spatial location, headways, demand, environmental flags) ended, then jumped straight to the "Action Space" subsection.
+"Environmental flags: encoded indicators for the current disturbance intensity and any active downstream incident or breakdown."
+
+(Then jumped straight to the "Action Space" subsection.)
 
 **AFTER (3.2.7 State Space, end of bullet list)**
 
-**A new table "Agent observation vector: features, symbols, and data sources" was inserted, listing 7 features (control stop index, forward headway, backward headway, onboard count, waiting count, disturbance flag, breakdown flag) with two columns: what real-world sensor supplies it in deployment (AVL feed, APC system, AFC terminal, weather API, incident system) versus what supplies it in simulation (hardcoded list, event-driven bus model, generator parameter, and so on). A closing sentence states all simulated features are synthetic — no real sensor data is used during training or evaluation.**
+"Environmental flags: encoded indicators for the current disturbance intensity and any active downstream incident or breakdown.
+
+**Agent observation vector: features, symbols, and data sources (new table inserted here)**
+
+| Feature | Deployment Source | Simulation Source |
+|---|---|---|
+| Control stop index | Hardcoded list | Hardcoded list |
+| Forward headway | AVL feed | Event-driven bus model |
+| Backward headway | AVL feed | Event-driven bus model |
+| Onboard count | APC system | Event-driven bus model |
+| Waiting count | AFC terminal / camera | Simulated queue |
+| Disturbance flag | Weather API | Generator parameter |
+| Breakdown flag | Incident system | Generator event |
+
+In simulation, all observation features are generated synthetically by the Python environment at each control event by querying the analytical bus model and the active stochastic generators; no real sensor data is consumed during training or evaluation.**"
 
 **Why:** RTC comment 21 — include details on the metrics and description of observation features.
 
@@ -224,15 +284,29 @@ The observation-vector bullet list (spatial location, headways, demand, environm
 
 ## 2026-08-06 — E1C1+E2C5+E4C22 — REVERTED, no net change
 
-**DRAFTED (mid-session, never committed)**
+**BEFORE**
 
-A "Dataset Description" section describing SafeTravelPH as a crowdsourced GPS-trajectory mobile app, its July 2023 EDSA Busway collection window, and its per-trip record structure, plus a 6-row table mapping dataset fields to their roles in calibration, and a closing sentence about the secondary DOTr FOI ridership source. All specific numbers used TODO-DATA placeholders correctly.
+"Corridor bus operational data. A per-trip record of EDSA Carousel bus operation along the study sub-corridor... The baseline operating point for this study is established from a crowdsourced operational record collected from the EDSA Busway during July 2023 through the SafeTravelPH mobile application."
 
-**REVERTED TO (final, pushed state — identical to the original)**
+"Severe-weather conditions are not estimated from operational data in this study but are injected as a controlled experimental variable..."
 
-The section reads exactly as it did before this session started: the "Corridor bus operational data" bullet flows straight into "Severe-weather conditions are not estimated from operational data in this study." No dataset description paragraph, no field table.
+**DRAFTED (never committed)**
 
-**Why reverted:** the user caught this before any commit — the group doesn't actually have access to the SafeTravelPH dataset yet, and even though the numbers were placeholder-tagged, the qualitative description (what kind of app it is, how its records are structured) asserted more familiarity with the dataset than is currently honest. Full detail in TRACKER.md.
+"Corridor bus operational data..." [same as before]
+
+"**The baseline operating point described above is grounded in the SafeTravelPH dataset: a crowdsourced mobile application through which commuters submit trip-level GPS trajectory reports while travelling along Philippine transit corridors... Each submission corresponds to a single commuter trip and yields a per-trip trajectory log... The dataset comprises TODO-DATA: insert total trip record count...**"
+
+[Table: SafeTravelPH dataset fields and their role in simulation calibration — 6 rows]
+
+"**A secondary source of station-level ridership aggregates... is to be acquired from the Department of Transportation (DOTr) under the Freedom of Information framework...**"
+
+"Severe-weather conditions are not estimated from operational data in this study..."
+
+**REVERTED TO (final, pushed state)**
+
+Same as BEFORE — the drafted block was removed entirely before any commit.
+
+**Why reverted:** the user caught this before any commit — the group doesn't actually have access to the SafeTravelPH dataset yet, and even though the numbers were placeholder-tagged, the qualitative description asserted more familiarity with the dataset than is currently honest.
 
 ---
 
@@ -286,13 +360,17 @@ The section reads exactly as it did before this session started: the "Corridor b
 
 **BEFORE**
 
-The SARL limitations section ended with a paragraph about SA-DRL's competitive results, then jumped straight to the Multi-Agent RL section.
+"...which motivates the MARL choice here while acknowledging this caveat."
+
+(Then jumped straight to the "Multi-Agent Reinforcement Learning" section — no ML/SARL disturbance table existed.)
 
 **AFTER**
 
-**New introductory sentence: "To situate the MARL literature reviewed next within the broader ML and SARL landscape, this table extends the paradigm comparison from Table 1.1 with a disturbance-coverage column, using the same D/S/T/W/B notation as the main MARL comparison table."**
+"...which motivates the MARL choice here while acknowledging this caveat.
 
-**New table, "Disturbance coverage across ML and SARL vehicle-scheduling studies":**
+**To situate the MARL literature reviewed in the next subsection within the broader ML and SARL landscape, this table extends the paradigm comparison of Table 1.1 with a disturbance-coverage column, using the same D/S/T/W/B notation as the main MARL comparison table.**"
+
+**Disturbance coverage across ML and SARL vehicle-scheduling studies (new table):**
 
 | Paper | Paradigm | Method | Disturbances |
 |---|---|---|---|
@@ -302,7 +380,7 @@ The SARL limitations section ended with a paragraph about SA-DRL's competitive r
 | Zhang and Zheng | SARL | SA-DRL; categorical identity features | D, T |
 | Verbich and El-Geneidy | Heuristic (non-MARL) | Dynamic transit control under severe weather and vehicle breakdowns | W, B |
 
-**New closing paragraph: "The funnel is now complete: no ML or SARL study covers W or B, and among MARL studies, only Verbich and El-Geneidy's heuristic controller addresses both, and it's explicitly non-MARL. Patil et al. similarly validate weather-induced travel-time distributions but don't address bus control at all; their contribution here is the lognormal parameterization for the weather generator, not a bus-control baseline. No prior study, ML, SARL, or MARL, combines W and B coverage with an actual MARL bus-scheduling controller, which is the specific gap this study fills."**
+"**The funnel is now complete: no ML or SARL study covers W or B, and among MARL studies, only Verbich and El-Geneidy's heuristic controller addresses both, and it's explicitly non-MARL. Patil et al. similarly validate weather-induced travel-time distributions but don't address bus control at all; their contribution here is the lognormal parameterization for the weather generator, not a bus-control baseline. No prior study, ML, SARL, or MARL, combines W and B coverage with an actual MARL bus-scheduling controller, which is the specific gap this study fills.**"
 
 **Why:** RTC comment 9 (asks for an ML/SARL disturbance table) and comment 4 (asks for a severe-weather comparison study) — solved together, since Verbich & El-Geneidy is exactly what comment 4 wants and fits naturally as a row here.
 
@@ -313,11 +391,11 @@ The SARL limitations section ended with a paragraph about SA-DRL's competitive r
 
 **BEFORE**
 
-The paragraph right before the Table 1.2 summary jumped straight into: "Table 1.2 summarizes what each study evaluated, what disturbances it modeled, and what it reported."
+"Table 1.2 summarizes what each study evaluated, what disturbances it modeled, and what it reported."
 
 **AFTER**
 
-**"Only Shi et al. carries a breakdown (B) entry in Table 1.2. Cao et al., who also model discrete vehicle failures, are deliberately excluded from this count: their MARL application is to train rescheduling, not bus scheduling, so they don't belong in a table scoped to MARL bus-control literature. Verbich and El-Geneidy likewise model breakdowns but use heuristic, non-MARL control (see the new ML/SARL table), so they're excluded for the same reason. Among MARL bus-scheduling studies specifically, Shi et al. remains the only one to model discrete breakdowns."** "Table 1.2 summarizes what each study evaluated, what disturbances it modeled, and what it reported."
+"**Only Shi et al. carries a breakdown (B) entry in Table 1.2. Cao et al., who also model discrete vehicle failures, are deliberately excluded from this count: their MARL application is to train rescheduling, not bus scheduling, so they don't belong in a table scoped to MARL bus-control literature. Verbich and El-Geneidy likewise model breakdowns but use heuristic, non-MARL control (see the ML/SARL table), so they're excluded for the same reason. Among MARL bus-scheduling studies specifically, Shi et al. remains the only one to model discrete breakdowns.** Table 1.2 summarizes what each study evaluated, what disturbances it modeled, and what it reported."
 
 **Why:** RTC comment 10 — the table shows only one breakdown paper but the presentation reportedly showed two. Could not confirm what was actually shown, since there was no slide access at the time, so used the RTC letter's own suggested fallback: explain why the two "candidate" second papers are correctly excluded, rather than guessing at an unverified row.
 
@@ -326,13 +404,17 @@ The paragraph right before the Table 1.2 summary jumped straight into: "Table 1.
 ## 2026-08-06 — E3C11 — figure caption attribution (introduction.tex, methods.tex)
 **Status:** ACTIVE
 
-**BEFORE**
+**BEFORE** (example — Figure 1.3 caption ending)
 
-7 original diagrams (Figures 1.3, 1.4, 3.1–3.5) had captions ending in plain description with no source note.
+"...across N agents, each acting on its own local observation o_i."
 
-**AFTER**
+(Same pattern for Figures 1.4, 3.1–3.5 — captions ended with no source attribution.)
 
-**Each caption now ends with "Authors' illustration."** added after the existing description — nothing else in any caption changed. Figures 1.1 and 1.2 already had proper citations (DOTr ridership data, TSSP rainfall study) and were left as-is.
+**AFTER** (example — Figure 1.3 caption ending)
+
+"...across N agents, each acting on its own local observation o_i. **Authors' illustration.**"
+
+(Same "Authors' illustration." appended to all 7 original diagram captions. Figures 1.1 and 1.2 already had proper citations and were unchanged.)
 
 **Why:** RTC comment 11 — some figures lack citations; original diagrams should say so explicitly rather than looking uncredited.
 
@@ -393,13 +475,7 @@ Ten short additions, each linking an existing sentence to a figure/table that wa
 ## 2026-08-06 — E3C18 + E3C19 — main.tex preamble
 **Status:** ACTIVE
 
-**BEFORE**
-
-The `setspace` package was not loaded and `\onehalfspacing` was not called. The `lineno` package was already loaded, but `\linenumbers` was commented out.
-
-**AFTER**
-
-**Added `\usepackage{setspace}` to the preamble. Added `\onehalfspacing` right after `\begin{document}`. Uncommented `\linenumbers`.** Everything else in the preamble is unchanged.
+This entry is a preamble-only change (no manuscript prose changed). See AUDIT_TRAIL.md for the exact LaTeX diff. In summary: added the setspace package, added onehalfspacing after begin-document, and uncommented the linenumbers command.
 
 **Why:** RTC comments 18 and 19 — 1.5 line spacing and line numbers for the non-final manuscript. Applied last, after all other content edits in this revision round, per CLAUDE.md's own guidance to avoid disrupting line references mid-revision.
 
@@ -410,11 +486,13 @@ The `setspace` package was not loaded and `\onehalfspacing` was not called. The 
 
 **BEFORE**
 
-The "Required Datasets" bullet list (GPS location, boarding events, alighting events, occupancy, speed, dwell time) ended, then jumped straight to "Severe-weather conditions are not estimated from operational data in this study."
+"Severe-weather conditions are not estimated from operational data in this study but are injected as a controlled experimental variable, with disturbance magnitudes anchored to validated literature values rather than to a corridor-specific severe-weather sample."
+
+(The required-datasets bullet list ended and went straight to this sentence — no mapping table existed.)
 
 **AFTER**
 
-**"Table 3.2 maps each required raw field to the parameter derived from it and the MARL component that parameter feeds into, connecting the data requirements above to the disturbance generators, the control-stop selection criteria, and the agent observation vector. The mapping reflects the study's design intent, not properties of a processed dataset; specific statistics remain TODO-DATA pending dataset acquisition."**
+"**Table 3.2 maps each required raw field to the parameter derived from it and the MARL component that parameter feeds into, connecting the data requirements above to the disturbance generators, the control-stop selection criteria, and the agent observation vector. The mapping reflects the study's design intent, not properties of a processed dataset; specific statistics remain TODO-DATA pending dataset acquisition.**
 
 | Raw Field | Derived Parameter | MARL Component |
 |---|---|---|
@@ -441,13 +519,31 @@ The "Required Datasets" bullet list (GPS location, boarding events, alighting ev
 | 1 | intro: EDSA corridor map figure | SUPERSEDED (inside `\iffalse`) |
 | 2 | methods: η-sweep basis table (tab:eta-basis) | ACTIVE |
 
-**BEFORE**
+**Addition 1 — introduction.tex: corridor map figure (SUPERSEDED)**
 
-The corridor was described in prose only, with no map figure. The Introduction had two figures (ridership, rainfall impact). The η disturbance-intensity sweep values were explained in prose only, with no table.
+**BEFORE:** "Despite the gradual increase in demand..."
 
-**AFTER**
+(No corridor map figure existed between the ridership figure and this sentence.)
 
-**Added a new figure right after the ridership figure: the EDSA Carousel corridor map** (Monumento to PITX route with jeepney, MRT, LRT, tricycle, and UV/FX transport-mode legend at each stop), extracted from the group's defense presentation. **Added a new table right after the existing η-sweep prose in methods.tex**, listing each η value (0.0, 0.3, 0.6, 1.0, 1.3) alongside its basis (generator off, inside Patil et al.'s validated range, top of validated range, or extrapolated stress test) — the existing prose explaining this was kept unchanged, the table just gives readers a quick-reference version.
+**AFTER:** "**Figure 1.3 shows the EDSA Carousel Southbound route from Monumento to PITX, the corridor this study is grounded in, together with the other public transport modes (jeepney, MRT, LRT, tricycle, UV/FX) that intersect it at each major stop.** [corridor map image] Despite the gradual increase in demand..."
+
+**Addition 2 — methods.tex: η-sweep basis table (ACTIVE)**
+
+**BEFORE:** "The mapping from η to a specific named weather severity..."
+
+(The η sweep values were explained in prose only — no summary table.)
+
+**AFTER:**
+
+| η | Basis |
+|---|---|
+| 0.0 | Synthetic factor off; empirical T remains active |
+| 0.3 | Within the published CV range; synthetic variability stress |
+| 0.6 | Within the published CV span; synthetic variability stress |
+| 1.0 | Upper end of the published CV range; synthetic severe stress |
+| 1.3 | Beyond the published range; deliberate extreme extrapolation |
+
+"The mapping from η to named weather severity..."
 
 **Why:** RTC comment 17 — include figures/tables shown in the defense but missing from the manuscript. All 58 slides of the defense deck were reviewed against the manuscript; most content (SARL vs MARL, CTDE, calibration formulas, parameter notation, training-vs-execution protocol) duplicated what's already written — adding it again would just repeat existing material. These two were the genuinely new items. The corridor map specifically matches the example the RTC letter itself gave for what might be missing.
 
@@ -462,7 +558,7 @@ The corridor was described in prose only, with no map figure. The Introduction h
 
 **BEFORE**
 
-The Significance section opened with a single plain sentence: "This study contributes both practical and scientific significance." The order (practical significance discussed first, scientific significance second) was never explained.
+"This study contributes both practical and scientific significance."
 
 **AFTER**
 
@@ -479,11 +575,11 @@ The Significance section opened with a single plain sentence: "This study contri
 
 **BEFORE**
 
-The Research Gap paragraph ended with: "Without this characterization, it cannot be determined whether reported MARL gains persist, degrade gracefully, or collapse under realistic operating disturbances, which in turn blocks the transition of MARL bus scheduling from simulation to real urban transit deployment." The paragraph then moved directly into a separate discussion of the weather-disturbance class specifically, without explaining why testing the disturbances *together* mattered beyond it being an unfilled cell in the literature-comparison table.
+"Without this characterization, it cannot be determined whether reported MARL gains persist, degrade gracefully, or collapse under realistic operating disturbances, which in turn blocks the transition of MARL bus scheduling from simulation to real urban transit deployment."
 
 **AFTER**
 
-The same sentence stays, followed by: "**This joint-disturbance framing reflects two independently-documented, concurrent operational realities of the same corridor rather than only a gap in existing comparison tables: EDSA experiences both weather-driven service disruptions (Mangaluz, 2024; PIA emergency-response reporting) and chronic mechanical-failure risk (Chua, 2026) as ongoing features of its operating environment, so a controller validated against each in isolation provides no evidence of how it behaves when a transit operator's actual risk exposure includes both at once. The disturbance generators remain independently sampled within the simulation (Section 3.2.6); this operational context motivates evaluating their union, not a claim that the two are causally or temporally linked.**"
+"Without this characterization, it cannot be determined whether reported MARL gains persist, degrade gracefully, or collapse under realistic operating disturbances, which in turn blocks the transition of MARL bus scheduling from simulation to real urban transit deployment. **This joint-disturbance framing reflects two independently-documented, concurrent operational realities of the same corridor rather than only a gap in existing comparison tables: EDSA experiences both weather-driven service disruptions (Mangaluz, 2024; PIA emergency-response reporting) and chronic mechanical-failure risk (Chua, 2026) as ongoing features of its operating environment, so a controller validated against each in isolation provides no evidence of how it behaves when a transit operator's actual risk exposure includes both at once. The disturbance generators remain independently sampled within the simulation (Section 3.2.6); this operational context motivates evaluating their union, not a claim that the two are causally or temporally linked.**"
 
 **Why:** self-identified. Grounds the "combined disturbance" framing in a real, citable fact about EDSA's operating environment rather than presenting the combination as valuable only because no prior comparison table has filled that cell. Also explicitly reaffirms that the disturbance generators remain independently sampled (established earlier in the methods chapter), so this addition doesn't contradict that existing design choice.
 
@@ -498,7 +594,7 @@ The same sentence stays, followed by: "**This joint-disturbance framing reflects
 
 **BEFORE**
 
-The Reward Function subsection ended with: "This study defines the reward structure for the hybrid action space, the three component terms above, and treats their relative weighting, plus a sensitivity analysis over those weights, as the implementation-phase deliverable (EO 2.1). The component structure is fixed; the coefficients are not yet finalized." Nothing after that explained how an agent actually receives its reward in practice.
+"This study defines the reward structure for the hybrid action space, the three component terms above, and treats their relative weighting, plus a sensitivity analysis over those weights, as the implementation-phase deliverable (EO 2.1). The component structure is fixed; the coefficients are not yet finalized."
 
 **AFTER**
 
