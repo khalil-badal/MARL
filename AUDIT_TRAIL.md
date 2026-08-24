@@ -381,7 +381,7 @@
 ---
 
 ## 2026-08-06 — E3C16 — figure/table callout sweep (introduction.tex, methods.tex)
-**Commit:** not yet committed
+**Commit:** `b15ab23`
 
 Ten one-clause insertions, each adding a missing `\ref{}` to an existing sentence next to a previously-uncited figure/table:
 
@@ -429,7 +429,7 @@ Ten one-clause insertions, each adding a missing `\ref{}` to an existing sentenc
 ---
 
 ## 2026-08-06 — E3C18 + E3C19 — main.tex preamble
-**Commit:** not yet committed
+**Commit:** `b15ab23`
 
 ```diff
   \usepackage{ragged2e}
@@ -457,7 +457,7 @@ Ten one-clause insertions, each adding a missing `\ref{}` to an existing sentenc
 ---
 
 ## 2026-08-06 — E1C2 — methods.tex, Section 3.2.5 (end)
-**Commit:** not yet committed
+**Commit:** `ce79e06`
 
 ```diff
   \end{itemize}
@@ -489,7 +489,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — E3C17 — introduction.tex (Background), methods.tex (Weather-Induced Anomalies)
-**Commit:** not yet committed
+**Commit:** `142502b`
 
 ```diff
   (introduction.tex, after the ridership figure)
@@ -538,7 +538,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — N1 (self-identified, not RTC) — methods.tex, Section 3.2.7
-**Commit:** not yet committed
+**Commit:** `14e926e`
 
 ```diff
   ...This study defines the reward \textit{structure} for the hybrid action space, the three component terms above, and treats their relative weighting, plus a sensitivity analysis over those weights, as the implementation-phase deliverable (EO 2.1). The component structure is fixed; the coefficients are not yet finalized.
@@ -558,7 +558,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — N2 — problem.tex, Section 2.3 (Significance)
-**Commit:** not yet committed
+**Commit:** `a64f44c`
 
 ```diff
   \section{Significance of the Study}
@@ -573,7 +573,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — N2 — problem.tex, Section 2.2 (Research Gap)
-**Commit:** not yet committed
+**Commit:** `a64f44c`
 
 ```diff
   Without this characterization, it cannot be determined whether reported MARL gains persist, degrade gracefully, or collapse under realistic operating disturbances, which in turn blocks the transition of MARL bus scheduling from simulation to real urban transit deployment.
@@ -587,7 +587,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — N1 rewrite (user-provided prose) — methods.tex, Section 3.2.7
-**Commit:** not yet committed
+**Commit:** `79085f4`
 
 ```diff
   ...Existing MARL bus-control reward formulations span a range of trade-offs among these priorities, from headway-coefficient-of-variation forms for holding-only action spaces \cite{Wangsun,Wang2023MultiObj} to passenger-time forms for combined holding-and-skipping action spaces \cite{Rodriguez2023Cooperative}.
@@ -613,72 +613,54 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 
 ---
 
-## 2026-08-24 — E1C1 + E2C5 + E4C22 — methods.tex, Section 3.2.5
-**Commit:** `[pending]`
+## 2026-08-24 — Texas CapMetro pivot + E1C1/E2C5/E4C22 — introduction.tex, problem.tex, methods.tex, main.tex, thesis_refs.bib
+**Commit:** `aff79b0`
+
+This commit applies the full Texas CapMetro rewrite from Jared's branch (`dataset/texas-capmetro-801` on `Jrddlol2/MARL_THESIS_TEXASAPC_DATASET`), which was audited and verified before adoption. The EDSA-focused versions of all .tex files are preserved in `EDSA Ver/`. The changes are extensive — the diffs below cover the dataset-description sections that directly answer E1C1/E2C5/E4C22; see the full file diffs in the commit for the complete scope of the pivot.
+
+### methods.tex, Section 3.2.5 — Required Datasets
 
 ```diff
-  \subsubsection{Required Datasets}
-
-  \begin{itemize}
-
-- \item \textbf{Corridor bus operational data.} A per-trip record of EDSA Carousel bus operation along the study sub-corridor, collected over a continuous observation window of at least two weeks. The required fields are GPS-tracked vehicle location, boarding and alighting events, passenger occupancy, operating speed, and \textit{dwell time} at each stop, the dwell time being the interval a bus spends stationary at a stop serving passengers, measured from the moment the doors open to the moment they close and the bus is ready to depart, exclusive of any holding time subsequently imposed by the controller. These records yield the empirical distributions of bus cruising speed, inter-stop travel time, and demand under ideal operating conditions, used both to calibrate SUMO and to define the baseline operating point of the stochastic generators. The baseline operating point for this study is established from a crowdsourced operational record collected from the EDSA Busway during July 2023 through the SafeTravelPH mobile application.
-+ \item \textbf{Corridor bus operational data (primary).} The primary operational dataset is the Capital Metropolitan Transportation Authority (CapMetro) Automatic Passenger Counter (APC) raw archive for July--December 2021~\cite{TexasCapMetroAPC2021}, published on the Texas Open Data Portal (Socrata dataset ID \texttt{im6q-3pc9}). The full archive contains 9,197,694 stop-level event records across 47 fields. Each record represents a single bus stop visit and includes: calendar and temporal fields (\texttt{service\_date}, \texttt{calendar\_id}, \texttt{day\_of\_week}); route and trip identifiers (\texttt{route\_id}, \texttt{current\_route\_id}, \texttt{trip\_id}, \texttt{direction\_code\_id}); stop-level spatial data (\texttt{bs\_id}, \texttt{stop\_sequence}, GPS coordinates); passenger activity (\texttt{ons}, \texttt{offs}, \texttt{load}, \texttt{max\_load}); temporal measurements (\texttt{departure\_dtm}, \texttt{map\_data\_tmstmp}, scheduled versus actual arrival differences); vehicle identifiers (\texttt{vehicle\_id}); and data quality flags (\texttt{import\_error}, \texttt{import\_trip\_error}).
+- \item \textbf{Corridor bus operational data.} A per-trip record of EDSA Carousel bus operation along the study sub-corridor, collected over a continuous observation window of at least two weeks. The required fields are GPS-tracked vehicle location, boarding and alighting events, passenger occupancy, operating speed, and \textit{dwell time} at each stop [...] The baseline operating point for this study is established from a crowdsourced operational record collected from the EDSA Busway during July 2023 through the SafeTravelPH mobile application.
++ \item \textbf{Corridor operational data (primary).} The primary dataset is the Capital Metropolitan Transportation Authority (CapMetro) Automatic Passenger Counter (APC) raw archive for July--December 2021~\cite{TexasCapMetroAPC2021}, published on the Texas Open Data Portal (Socrata dataset~ID \texttt{im6q-3pc9}). [...] The archive contains 9{,}197{,}694 stop-level event records across 47~columns. Each record is a single bus stop visit with: calendar fields, route and trip identifiers, stop spatial data (\texttt{bs\_id}, \texttt{stop\_sequence}, GPS), passenger activity (\texttt{ons}, \texttt{offs}, \texttt{load}, \texttt{max\_load}), temporal measurements (\texttt{departure\_dtm}), vehicle identifiers, and quality flags (\texttt{import\_error}, \texttt{import\_trip\_error}).
 +
-+ This study uses the subset corresponding to MetroRapid Route 801 (North Lamar/South Congress BRT corridor), direction code 6 (northbound), operated by New Flyer Xcelsior XDE60 articulated buses with a crush capacity of approximately 123 passengers~\cite{NTD2021Fleet,CapMetroRapid801}. [...]
++ \item \textbf{Weather data (secondary).} NOAA Local Climatological Data Version~2~\cite{NOAALCDv2}, Camp Mabry station USW00013958, same July--December 2021 period. Joined to APC records by nearest-hour timestamp.
 +
-+ After cleaning (Section~\ref{subsec:data-pipeline}), the usable subset comprises 229,421 stop-level event records spanning 184 service days with a total of 420,201 recorded boardings. [...]
-+
-+ \item \textbf{Weather data (secondary).} Hourly surface observations from NOAA Local Climatological Data Version~2~\cite{NOAALCDv2}, covering the same July--December 2021 period. [...]
-+
-+ \item \textbf{Vehicle fleet data (supplementary).} The 2021 National Transit Database Revenue Vehicle Inventory~\cite{NTD2021Fleet} (NTD ID 60048) [...]
-
-  \end{itemize}
++ \item \textbf{Vehicle fleet data (supplementary).} 2021 NTD Revenue Vehicle Inventory~\cite{NTD2021Fleet} (NTD ID 60048) for per-vehicle capacity confirmation.
 ```
 
-```diff
-  \subsubsection{Data Pre-Processing Pipeline}
-  \label{subsec:data-pipeline}
+### methods.tex, Section 3.2.5 — Data Pre-Processing Pipeline
 
+```diff
 - Pre-processing proceeds in three stages.
+- \textit{Stage 1: Cleaning.} Trip records with missing GPS coordinates, missing timestamps, negative inter-stop times, or trips that fail integrity checks [...] are dropped. [...]
 + Pre-processing proceeds in four stages.
-
-- \textit{Stage 1: Cleaning.} Trip records with missing GPS coordinates, missing timestamps, negative inter-stop times, or trips that fail integrity checks (for example, a later stop served before an earlier one) are dropped. Remaining records are normalized to a common time zone. [...]
-+ \textit{Stage 1: Filtering and validation.} The raw APC archive is filtered to the study subset using four sequential rules: (1)~route consistency (\texttt{current\_route\_id} equals \texttt{route\_id}), which removes records where the vehicle was reassigned mid-trip; (2)~import-error exclusion (\texttt{import\_error}~$= 0$ and \texttt{import\_trip\_error}~$= 0$), which removes records flagged by the APC system as unreliable; (3)~valid stop identification (\texttt{bs\_id}~$\neq 0$), which removes records with unresolved stop references; and (4)~direction selection (\texttt{direction\_code\_id}~$= 6$), which isolates the northbound service direction. These filters reduce the archive from 9,197,694 records to 229,421 records spanning 184 service days and 29 stop IDs, with 420,201 total boardings. Output integrity is verified by comparing the SHA-256 checksum of the cleaned file against an independently produced reference.
-
-+ \textit{Stage 2: Temporal and weather join.} Cleaned stop-visit records are joined to NOAA hourly weather observations~\cite{NOAALCDv2} by rounding the departure timestamp to the nearest hour and matching to the Camp Mabry station record. [...]
-
-- \textit{Stage 2: Empirical distribution extraction.} [...]
-+ \textit{Stage 3: Empirical distribution extraction.} [unchanged content, renumbered]
-
-- \textit{Stage 3: Train/validation split for calibration.} [...]
-+ \textit{Stage 4: Train/validation split for calibration.} [unchanged content, renumbered]
++ \textit{Stage 1: Filtering and validation.} The raw APC archive is filtered using four sequential rules: (1)~route consistency (\texttt{current\_route\_id} = \texttt{route\_id}); (2)~import-error exclusion; (3)~valid stop ID (\texttt{bs\_id} $\neq$ 0); (4)~direction selection (\texttt{direction\_code\_id} = 6). Reduces 9{,}197{,}694 to 229{,}421 records. Output integrity verified via SHA-256 checksum.
++ \textit{Stage 2: Temporal and weather join.} Departure timestamps rounded to nearest hour and matched to Camp Mabry NOAA record.
 ```
 
-**Why:** E1C1 ("Update manuscript with proposed setup and discussion of dataset"), E2C5 ("Explain what the dataset looks like"), E4C22 ("Describe dataset contents explicitly"). Previously blocked on dataset access; now unblocked after local verification of CapMetro APC archive (SHA-256 verified, 229,421 clean rows confirmed).
-
----
-
-## 2026-08-24 — E1C1 + E2C5 + E4C22 — problem.tex, Section 2.4
-**Commit:** `[pending]`
+### problem.tex — full rewrite for CapMetro
 
 ```diff
-  \textbf{Scope.} This study develops and evaluates a MARL-based bus scheduling
-- framework for the EDSA Carousel corridor. The framework is built on a
-+ framework for a BRT corridor. The framework is built on a
-  calibrated SUMO microsimulation and runs over a single-day operational
-  horizon; [...]
-
-+ The simulation is calibrated against a six-month Automatic Passenger Counter
-+ (APC) archive from Capital Metro Route 801 (Austin, TX, July--December
-+ 2021)~\cite{TexasCapMetroAPC2021}, comprising 229,421 validated stop-level
-+ event records across 184 service days and 29 stops, with 420,201 total
-+ recorded boardings. Weather conditions during the same period are captured via
-+ NOAA hourly surface observations~\cite{NOAALCDv2}. The dataset, cleaning
-+ methodology, and derived parameters are described in detail in Chapter~3,
-+ Section~3.2.5.
+- \section{Rationale}
+- The public transportation system has long been a commodity [...] In Metro Manila, traffic congestion has long been a problem [...] the implementation of the EDSA Carousel in 2020. [...]
++ \section{Rationale}
++ High-frequency bus operation is a sequential control problem [...] The empirical case is CapMetro Rapid Route 801 in Austin, Texas. CapMetro's public APC dataset covers July--December 2021 and contains event timestamps, route and direction codes, stop IDs, boarding and alighting counts, onboard load, dwell time, revenue travel time and distance, event coordinates, and quality indicators \cite{TexasCapMetroAPC2021}. [...]
++ The one-direction study subset uses direction code 6 and contains 229{,}421 clean stop events, 184 service-day codes, and 29 distinct stop IDs. [...]
 ```
 
-**Why:** Same task (E1C1/E2C5/E4C22) — adds dataset reference to the Scope section so the reader knows the calibration data source before reaching Chapter 3.
+### thesis_refs.bib — new entries
+
+```diff
++ @misc{TexasCapMetroAPC2021, ...}
++ @misc{CapMetroRapid, ...}
++ @misc{CapMetroGTFS, ...}
++ @misc{NOAALCDv2, ...}
++ @article{SunRain2025, ...}
++ @article{Guedes2018Rescheduling, ...}
+```
+
+**Why:** E1C1 ("Update manuscript with proposed setup and discussion of dataset"), E2C5 ("Explain what the dataset looks like"), E4C22 ("Describe dataset contents explicitly") — all three previously blocked on dataset access. Dataset now verified locally (229,421 clean rows, SHA-256 confirmed). Additionally, the group's decision to pivot from EDSA to CapMetro required a broader rewrite of introduction.tex, problem.tex, methods.tex, and main.tex, all done on Jared's branch and adopted here after a full audit.
 
 ---
 
