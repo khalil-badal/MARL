@@ -685,4 +685,96 @@ The public transportation system has long been a commodity that comes in the for
 
 ---
 
+## 2026-08-24 — REWRITE of E3C8 — methods.tex, Section 3.2.6
+**Status:** ACTIVE
+
+**BEFORE**
+
+"This study distinguishes five disturbance classes, denoted D, S, T, W, and B:
+
+- **Stochastic demand (D):** the baseline, always-present day-to-day randomness in passenger arrivals, drawn from the calibrated per-(stop, time-of-day) demand distributions. D is not a disturbance layered on top of a deterministic baseline; it IS the baseline stochastic environment, present in every run regardless of which other generators are active.
+- **Demand surge (S):** an episode-level multiplicative scaling factor, with standard deviation σ_d, that amplifies baseline boarding rates above their empirical mean. S is the controlled experimental variable; D is always present, and S is what is added on top of it. Setting σ_d = 0 removes the surge and leaves only baseline demand variability (D).
+- Ordinary travel-time variation (T) and Weather-induced delay (W) definitions — unchanged by this rewrite, see current methods.tex.
+- **Discrete bus breakdown (B):** a Poisson-distributed discrete event, with rate λ, that permanently removes one bus from the active agent set for the remainder of the simulated day.
+
+The generators that produce S, W, and B are sampled independently conditional on the always-active D and T baselines: no causal chain links them within the simulation. A breakdown does not trigger a demand surge or weather delay, and weather does not induce a mechanical failure. This factorial choice supports attribution in the single-disturbance ablations; it is not a claim that real disturbances are causally independent."
+
+**AFTER**
+
+"This study distinguishes five disturbance classes, denoted D, S, T, W, and B:
+
+- **Stochastic demand (D):** **represents the normal day-to-day variation in passenger arrivals. Passenger demand is sampled from calibrated distributions for each stop and time of day. Unlike the other disturbances, D is always active and serves as the baseline demand condition of the simulation rather than an additional disturbance applied to a fixed demand profile.**
+- **Demand surge (S):** **represents an increase in passenger demand by scaling the baseline boarding rates for a given episode, with standard deviation σ_d. In this case, D remains active as the baseline demand variation, while S introduces an additional increase in demand. Setting σ_d = 0 removes the surge and leaves only the baseline stochastic demand represented by D.**
+- Ordinary travel-time variation (T) and Weather-induced delay (W) definitions — unchanged by this rewrite (kept as-is; they reflect the current CapMetro composition design, not the older wording this rewrite was drafted against — see Why below).
+- **Discrete bus breakdown (B):** **represents the occurrence of bus breakdowns during operation. Breakdowns are modeled as discrete events following a Poisson distribution with rate λ. Once a bus breaks down, it is removed from the active fleet for the remainder of the simulated day.**
+
+**The generators for S, W, and B are sampled independently while D and T serve as the baseline conditions. Therefore, one disturbance does not directly trigger another within the simulation: a bus breakdown does not cause a demand surge or weather delay, and weather conditions do not cause a bus breakdown. This setup allows the individual effect of each disturbance to be evaluated more clearly during the single-disturbance ablation experiments. However, this assumption is only used for the simulation design and does not imply that these disturbances are necessarily independent in real-world operations.**"
+
+**Why:** user-supplied writing-style rewrite of the E3C8 addition (2026-08-06). The user's original draft also reworded the T and W bullets, but those used the older EDSA-era definitions (T = simple speed scaling; W replaces T), which conflict with the current CapMetro methods.tex design where T is an empirical rev_seconds distribution and W composes with T rather than replacing it (per the composition equation T_W = T_0 · m(w) · F_W already in the manuscript). Per the user's decision, only the D, S, B bullets and the closing independence paragraph were rewritten; T and W were left untouched to avoid introducing an internal contradiction with the existing composition design.
+
+---
+
+## 2026-08-24 — REWRITE of citation fix: Rodriguez2023Cooperative — methods.tex, Section 3.2.7
+**Status:** ACTIVE
+
+**BEFORE**
+
+"This study's action space (10 discrete actions: 5 holding strengths times 2 skip choices, selected independently) is broader than Rodriguez et al.'s combined holding-and-skipping controller, which instead selects among 6 mutually exclusive actions: 5 holding strengths, where zero-strength already covers 'no holding,' plus a single separate skip action. The same 5-value holding-strength set is used in both studies. A continuous holding parameter was considered but rejected for two reasons: continuous actions require actor-critic algorithms with training instability, and real driver compliance with holding instructions is itself imperfect — Rodriguez et al. model non-compliant drivers as executing only 60-80% of the instructed holding time — so continuous precision isn't meaningful at deployment anyway."
+
+**AFTER**
+
+"**This study uses an action space consisting of 10 discrete actions, combining five holding strengths with two skip choices that can be selected independently. This provides a broader action space compared with the combined holding-and-skipping controller used by Rodriguez et al., which consists of six mutually exclusive actions: five holding strengths, where zero holding already represents the option of not holding, and one separate skip action. Both studies use the same five-value set for holding strength.**
+
+**A continuous holding parameter was considered but was not used for two main reasons. First, continuous actions generally require actor-critic algorithms, which can introduce additional training instability. Second, continuous precision is not necessarily meaningful during actual deployment because driver compliance with holding instructions is imperfect. Rodriguez et al. account for this by modeling non-compliant drivers as executing only 60–80% of the instructed holding time. Therefore, using a continuous holding value would provide a level of control precision that may not be reliably achieved in practice.**"
+
+**Why:** user-supplied writing-style rewrite of the Rodriguez2023Cooperative citation fix (2026-08-06). Content verified compatible with the current live text — no new claims, same 60-80% compliance figure, same 5-value holding set — so applied as-is, split into two paragraphs per the user's structure.
+
+---
+
+## 2026-08-24 — REWRITE of citation fix: Wangsun — methods.tex, Section 3.2.6
+**Status:** ACTIVE
+
+**BEFORE**
+
+"The baseline empirical transit demand is perturbed each episode by a scaling factor sampled from a normal distribution and clipped to [1, 3], following the general Gaussian-clipped demand-scaling mechanism of Wang and Sun, though this study adopts a narrower clip than their [1, 10] range. The asymmetric clip focuses the test on demand surges rather than symmetric variation, since demand drops produce lightly loaded conditions that do not stress-test the controller. The upper bound of 3, corresponding to roughly a tripling of baseline boarding rates, is this study's own choice (flagged to revisit against Wang and Sun's wider range during implementation) rather than a value drawn from prior work."
+
+**AFTER**
+
+"**The baseline empirical transit demand is adjusted at each episode using a scaling factor sampled from a normal distribution and clipped to [1, 3]. This follows the general Gaussian-clipped demand-scaling approach used by Wang and Sun, but this study uses a narrower range than their [1, 10] setting. The asymmetric range focuses the experiments on demand surges rather than demand reductions, since lower demand mainly produces lightly loaded conditions and does not provide the same level of stress on the controller. The upper bound of 3, which allows the baseline boarding rate to increase by roughly three times, is a choice specific to this study (flagged to revisit against Wang and Sun's wider range during implementation) rather than a value directly adopted from prior work.**"
+
+**Why:** user-supplied writing-style rewrite of the Wangsun citation fix (2026-08-06). The user's draft included a closing clause ("and should be revisited during implementation against the wider range used by Wang and Sun") that duplicated the TODO-VAL placeholder tag's own wording; merged into one clause to avoid saying the same thing twice, keeping the TODO-VAL tag itself per CLAUDE.md's placeholder convention. The paragraph's trailing sentences ("Sampling occurs at the start of each simulation run..." and the E4C20 implementation-mechanics sentence) are unaffected by this rewrite and remain unchanged.
+
+---
+
+## 2026-08-24 — REWRITE #2 of N1 — methods.tex, Section 3.2.7
+**Status:** ACTIVE
+
+**BEFORE**
+
+"This study establishes the overall reward structure for the hybrid action space by defining the three reward components and their additive formulation, while treating the corresponding weighting coefficients, together with their sensitivity analysis, as the implementation-phase deliverable under Expected Output 2.1. Although the component structure is fixed at this stage, the coefficients remain as placeholders to be determined during implementation through experimental evaluation.
+
+The reward is computed independently for each agent at every control event rather than as a shared team-level objective. Accordingly, r_i,t represents the reward assigned to agent i and is stored as that agent's transition in the shared replay buffer. Each bus is therefore evaluated based on the consequences of its own action, even though all agents learn from a common shared network. Since the reward is derived from locally observable quantities already contained in the agent's observation, particularly the forward and backward headway measurements, the resulting signal remains aligned with corridor-wide service regularity without requiring a centralized reward computation during execution.
+
+The overall reward function is expressed as the weighted sum of three penalty terms:
+
+r(i,t+k) = −w₁ · (headway-irregularity term) − w₂ · (waiting-time term) − w₃ · (skip-degeneracy term)
+
+where w₁, w₂, and w₃ denote the weighting coefficients (TODO-VAL) to be determined through the Expected Output 2.1 sensitivity analysis. Each component is formulated as a non-positive penalty, allowing the agent to maximize its cumulative return by minimizing headway irregularity, passenger waiting time, and unnecessary stop-skipping behavior. Consequently, this chapter establishes the reward formulation and its optimization objective, while the specific mathematical expressions and coefficient values are reserved for the implementation and evaluation phase."
+
+**AFTER**
+
+"**This study defines the reward structure for the hybrid action space using the three component terms described above. The overall structure of the reward is fixed, while the relative weights of the three components, together with their sensitivity analysis, will be finalized during the implementation phase as part of Expected Output 2.1. The coefficients are therefore treated as placeholders at this stage.**
+
+**The reward is computed individually for each agent at every control event rather than using a shared team-level reward. The value r_i,t represents the reward assigned to agent i in the transition tuple stored in the shared replay buffer. This means that each bus is evaluated based on the consequences of its own action, even though all agents use the same shared network for learning. Since the agents already observe locally available quantities, particularly the forward and backward headway components, the individual reward can still capture the effects of an agent's action on corridor-wide regularity without requiring a centralized reward calculation during execution.**
+
+**The three priorities are combined as a weighted sum of per-event penalty terms:**
+
+r(i,t+k) = −w₁ · (headway-irregularity term) − w₂ · (waiting-time term) − w₃ · (skip-degeneracy term)
+
+**The weights w₁, w₂, and w₃ are left as placeholders (TODO-VAL) and will be tuned through the Expected Output 2.1 sensitivity analysis. Each component is expressed as a non-positive penalty, allowing the agent to maximize its expected return by minimizing headway irregularity, passenger waiting time, and excessive or degenerate skipping. Therefore, what is fixed in this chapter is the overall reward structure and its sign convention, while the specific component formulas and relative weights will be finalized during implementation.**"
+
+**Why:** user-supplied second-pass writing-style rewrite of the reward-function mechanics text (originally N1, self-identified not RTC; first rewritten 2026-08-06). The equation itself is unchanged. The TODO-VAL placeholder tag was kept on the weights sentence per CLAUDE.md's convention, though the user's draft didn't include it explicitly.
+
+---
+
 *Nothing follows.*
