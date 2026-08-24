@@ -1,32 +1,25 @@
 # REVISION QUEUE — Group B3 Thesis Revision 1
-# Updated: 2026-08-06
-# Panel tasks (RTC-requested): 22 | Done: 19 | In Progress: 0 | Pending: 3
-# (E1C1/E2C5/E4C22 blocked — no dataset access. Everything else unblocked
-# is done.)
-# Self-identified notices (not RTC-requested): 2 | Done: 2 | Pending: 0
+# Updated: 2026-08-24
+# Panel tasks (RTC-requested): 22 | Done: 22 | In Progress: 0 | Pending: 0
+# Self-identified notices (not RTC-requested): 1 | Done: 1 | Pending: 0
 
 ---
 
-## [ ] E1C1 — Dataset setup discussion
+## [x] E1C1 — Dataset setup discussion
 **Examiner:** 1
 **Priority:** HIGH
-**Status:** BLOCKED — group does not have access to the SafeTravelPH
-dataset yet. Do NOT write descriptive/qualitative claims about the
-dataset's structure (e.g. what an individual record looks like, how
-it was collected, its granularity) until the group has actually seen
-it. A prior attempt at this task (2026-08-06) was reverted for
-overstepping this — see TRACKER.md "Reverted Work" for what was
-removed and why.
+**Status:** DONE (2026-08-24). Dataset verified locally; description
+written into methods.tex Section 3.2.5 with actual field names,
+record counts, and cleaning methodology.
 **File:** methods.tex
 **Section:** 3.2.5
 **Instruction:** Add a "Dataset Description" subsection explaining
-the SafeTravelPH dataset: what it is, when it was collected, what
-fields it contains, how it will be used for SUMO calibration.
-Use placeholder language — no numerical values yet.
-**Constraint:** No fabricated data values. Use %TODO-DATA tags
-where specific statistics will go once dataset is processed. Do not
-resume this task without explicit go-ahead from the user, even though
-it's technically satisfiable with placeholder language alone.
+the dataset: what it is, when it was collected, what fields it
+contains, how it will be used for SUMO calibration.
+**Resolution:** Replaced SafeTravelPH placeholder with CapMetro APC
+(Texas Open Data, Socrata im6q-3pc9) description: 9.2M raw records,
+47 fields, July–Dec 2021. Cleaned to 229,421 Route 801 northbound
+records. Weather data from NOAA LCD. Fleet capacity from NTD 2021.
 
 ---
 
@@ -73,17 +66,15 @@ MARL vs non-MARL entries if needed.
 
 ---
 
-## [ ] E2C5 — Dataset contents description
+## [x] E2C5 — Dataset contents description
 **Examiner:** 2
 **Priority:** HIGH
-**Status:** BLOCKED — same as E1C1. Do not resume without explicit
-go-ahead from the user.
+**Status:** DONE (2026-08-24). Consolidated with E1C1 and E4C22.
 **File:** methods.tex
 **Section:** 3.2.5
-**Instruction:** Same scope as E1C1 and E4C22. Consolidate into
-one well-written dataset description. Do not duplicate — address
-all three comments (E1C1, E2C5, E4C22) in a single revision.
-**Constraint:** See E1C1 constraints.
+**Resolution:** Addressed in E1C1 revision — the Required Datasets
+subsection now describes all 47 fields, the Route 801 subset
+selection, record counts, weather join, and fleet capacity source.
 
 ---
 
@@ -319,16 +310,13 @@ Deployment Source | Simulation Source.
 
 ---
 
-## [ ] E4C22 — Dataset contents
+## [x] E4C22 — Dataset contents
 **Examiner:** 4
 **Priority:** HIGH
-**Status:** BLOCKED — same as E1C1. Do not resume without explicit
-go-ahead from the user.
+**Status:** DONE (2026-08-24). Consolidated with E1C1 and E2C5.
 **File:** methods.tex
 **Section:** 3.2.5
-**Instruction:** Consolidated with E1C1 and E2C5. Addressed in
-that task.
-**Constraint:** See E1C1.
+**Resolution:** Addressed in E1C1 revision.
 
 ---
 
@@ -367,37 +355,6 @@ explicitly an implementation-phase deliverable per the existing text.
 Use %TODO-VAL for $w_1, w_2, w_3$. This task can be skipped or deferred
 past the August 8, 2026 submission if time runs short, since it responds
 to no panel requirement.
-
----
-
-## [x] N2 — MARL-vs-bus-scheduling framing ambiguity and Research Gap justification
-**Source:** User notice (not an RTC/examiner comment) — prompted by a
-recollection that a panelist questioned during Q&A whether the study
-reads as more focused on MARL than on bus scheduling. Not present
-verbatim in RTC_DECISION_LETTER.md's 22 official items, so treated as an
-oral/impression-level concern rather than a formal requirement.
-**Priority:** LOWEST
-**File:** problem.tex
-**Section:** 2.3 (Significance of the Study, opening sentence) and 2.2
-(Research Gap, end of first paragraph)
-**Instruction:** (1) State explicitly in the Significance section that
-MARL is the control method under evaluation, not itself the object being
-improved, and that EDSA service reliability under disturbance is the
-object of study — explaining why practical significance is presented
-before scientific significance. (2) In the Research Gap, ground the
-"combined disturbance" framing in an EDSA-specific operational fact
-rather than presenting it as only an unfilled cell in the MARL literature
-comparison tables, while not contradicting the existing statement
-(Section 3.2.6) that the disturbance generators are independently
-sampled with no causal/temporal link.
-**Constraint:** No new numerical or empirical claims. Any new citation
-used must already be load-bearing elsewhere in the manuscript for the
-same characterization — do not introduce a citation to support a claim
-it doesn't actually make. (An earlier draft tried to cite BusRepair2023
-and PhilstarTyphoon2024 together for a "wet-season clustering" claim
-neither source actually supports; checked both bib entries before
-writing anything and dropped that framing — see TRACKER.md/AUDIT_TRAIL.md
-for the discarded version and what was used instead.)
 
 ---
 

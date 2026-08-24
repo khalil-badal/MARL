@@ -17,3 +17,10 @@ RRL/*.pdf
 # Defense presentation: large source file (62MB), kept local for
 # extracting figures/content only. Not pushed to GitHub.
 B3-Final-Defense.pdf
+
+# CapMetro APC dataset: raw and processed data kept local.
+# Only scripts, checksums, and audit evidence are committed.
+data/raw/
+data/processed/
+data/output/
+data/cached/

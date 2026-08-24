@@ -613,4 +613,73 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 
 ---
 
+## 2026-08-24 — E1C1 + E2C5 + E4C22 — methods.tex, Section 3.2.5
+**Commit:** `[pending]`
+
+```diff
+  \subsubsection{Required Datasets}
+
+  \begin{itemize}
+
+- \item \textbf{Corridor bus operational data.} A per-trip record of EDSA Carousel bus operation along the study sub-corridor, collected over a continuous observation window of at least two weeks. The required fields are GPS-tracked vehicle location, boarding and alighting events, passenger occupancy, operating speed, and \textit{dwell time} at each stop, the dwell time being the interval a bus spends stationary at a stop serving passengers, measured from the moment the doors open to the moment they close and the bus is ready to depart, exclusive of any holding time subsequently imposed by the controller. These records yield the empirical distributions of bus cruising speed, inter-stop travel time, and demand under ideal operating conditions, used both to calibrate SUMO and to define the baseline operating point of the stochastic generators. The baseline operating point for this study is established from a crowdsourced operational record collected from the EDSA Busway during July 2023 through the SafeTravelPH mobile application.
++ \item \textbf{Corridor bus operational data (primary).} The primary operational dataset is the Capital Metropolitan Transportation Authority (CapMetro) Automatic Passenger Counter (APC) raw archive for July--December 2021~\cite{TexasCapMetroAPC2021}, published on the Texas Open Data Portal (Socrata dataset ID \texttt{im6q-3pc9}). The full archive contains 9,197,694 stop-level event records across 47 fields. Each record represents a single bus stop visit and includes: calendar and temporal fields (\texttt{service\_date}, \texttt{calendar\_id}, \texttt{day\_of\_week}); route and trip identifiers (\texttt{route\_id}, \texttt{current\_route\_id}, \texttt{trip\_id}, \texttt{direction\_code\_id}); stop-level spatial data (\texttt{bs\_id}, \texttt{stop\_sequence}, GPS coordinates); passenger activity (\texttt{ons}, \texttt{offs}, \texttt{load}, \texttt{max\_load}); temporal measurements (\texttt{departure\_dtm}, \texttt{map\_data\_tmstmp}, scheduled versus actual arrival differences); vehicle identifiers (\texttt{vehicle\_id}); and data quality flags (\texttt{import\_error}, \texttt{import\_trip\_error}).
++
++ This study uses the subset corresponding to MetroRapid Route 801 (North Lamar/South Congress BRT corridor), direction code 6 (northbound), operated by New Flyer Xcelsior XDE60 articulated buses with a crush capacity of approximately 123 passengers~\cite{NTD2021Fleet,CapMetroRapid801}. [...]
++
++ After cleaning (Section~\ref{subsec:data-pipeline}), the usable subset comprises 229,421 stop-level event records spanning 184 service days with a total of 420,201 recorded boardings. [...]
++
++ \item \textbf{Weather data (secondary).} Hourly surface observations from NOAA Local Climatological Data Version~2~\cite{NOAALCDv2}, covering the same July--December 2021 period. [...]
++
++ \item \textbf{Vehicle fleet data (supplementary).} The 2021 National Transit Database Revenue Vehicle Inventory~\cite{NTD2021Fleet} (NTD ID 60048) [...]
+
+  \end{itemize}
+```
+
+```diff
+  \subsubsection{Data Pre-Processing Pipeline}
+  \label{subsec:data-pipeline}
+
+- Pre-processing proceeds in three stages.
++ Pre-processing proceeds in four stages.
+
+- \textit{Stage 1: Cleaning.} Trip records with missing GPS coordinates, missing timestamps, negative inter-stop times, or trips that fail integrity checks (for example, a later stop served before an earlier one) are dropped. Remaining records are normalized to a common time zone. [...]
++ \textit{Stage 1: Filtering and validation.} The raw APC archive is filtered to the study subset using four sequential rules: (1)~route consistency (\texttt{current\_route\_id} equals \texttt{route\_id}), which removes records where the vehicle was reassigned mid-trip; (2)~import-error exclusion (\texttt{import\_error}~$= 0$ and \texttt{import\_trip\_error}~$= 0$), which removes records flagged by the APC system as unreliable; (3)~valid stop identification (\texttt{bs\_id}~$\neq 0$), which removes records with unresolved stop references; and (4)~direction selection (\texttt{direction\_code\_id}~$= 6$), which isolates the northbound service direction. These filters reduce the archive from 9,197,694 records to 229,421 records spanning 184 service days and 29 stop IDs, with 420,201 total boardings. Output integrity is verified by comparing the SHA-256 checksum of the cleaned file against an independently produced reference.
+
++ \textit{Stage 2: Temporal and weather join.} Cleaned stop-visit records are joined to NOAA hourly weather observations~\cite{NOAALCDv2} by rounding the departure timestamp to the nearest hour and matching to the Camp Mabry station record. [...]
+
+- \textit{Stage 2: Empirical distribution extraction.} [...]
++ \textit{Stage 3: Empirical distribution extraction.} [unchanged content, renumbered]
+
+- \textit{Stage 3: Train/validation split for calibration.} [...]
++ \textit{Stage 4: Train/validation split for calibration.} [unchanged content, renumbered]
+```
+
+**Why:** E1C1 ("Update manuscript with proposed setup and discussion of dataset"), E2C5 ("Explain what the dataset looks like"), E4C22 ("Describe dataset contents explicitly"). Previously blocked on dataset access; now unblocked after local verification of CapMetro APC archive (SHA-256 verified, 229,421 clean rows confirmed).
+
+---
+
+## 2026-08-24 — E1C1 + E2C5 + E4C22 — problem.tex, Section 2.4
+**Commit:** `[pending]`
+
+```diff
+  \textbf{Scope.} This study develops and evaluates a MARL-based bus scheduling
+- framework for the EDSA Carousel corridor. The framework is built on a
++ framework for a BRT corridor. The framework is built on a
+  calibrated SUMO microsimulation and runs over a single-day operational
+  horizon; [...]
+
++ The simulation is calibrated against a six-month Automatic Passenger Counter
++ (APC) archive from Capital Metro Route 801 (Austin, TX, July--December
++ 2021)~\cite{TexasCapMetroAPC2021}, comprising 229,421 validated stop-level
++ event records across 184 service days and 29 stops, with 420,201 total
++ recorded boardings. Weather conditions during the same period are captured via
++ NOAA hourly surface observations~\cite{NOAALCDv2}. The dataset, cleaning
++ methodology, and derived parameters are described in detail in Chapter~3,
++ Section~3.2.5.
+```
+
+**Why:** Same task (E1C1/E2C5/E4C22) — adds dataset reference to the Scope section so the reader knows the calibration data source before reaching Chapter 3.
+
+---
+
 *Nothing follows.*

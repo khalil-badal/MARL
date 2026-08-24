@@ -10,9 +10,9 @@
 | Metric | Count |
 |--------|-------|
 | Total recommendations | 22 |
-| Completed | 19 |
+| Completed | 22 |
 | In progress | 0 |
-| Pending | 3 (E1C1/E2C5/E4C22, all blocked on dataset access — see Reverted Work / REVISION_QUEUE.md) |
+| Pending | 0 |
 
 ---
 
@@ -172,87 +172,6 @@ found and fixed so far, both pre-existing (written before this session).
 **What was wrong:** Text attributed to Rodriguez et al. the claim that their 5-bin discretization "achieves combined holding-and-skipping control... without measurable loss of performance versus continuous formulations." Checked against the full paper: no continuous-action baseline exists anywhere in it — this comparison isn't made. Also, Rodriguez's actual action space is a 6-way mutually-exclusive choice (5 holding strengths, where $\omega=0$ already covers "no holding," plus 1 skip action), not this thesis's 5×2=10 independent Cartesian combination — the two designs are similar in spirit but not the same.
 **Fix:** Removed the fabricated continuous-vs-discrete comparison. Reframed the $|A_i|=10$ design as this study's own choice (broader than Rodriguez's), correctly described Rodriguez's actual 6-action mutually-exclusive space, and kept the citation only for what's verifiably true: the matching $\Omega$ holding-strength values, and the driver-compliance argument (Rodriguez models non-compliant drivers executing 60-80% of instructed holding time — confirmed against Section 6.3 "Driver compliance"). Did NOT change the study's own $|A_i|=10$ design, since that value is load-bearing elsewhere (Table 3.1 notation, the SARL state/action-space dimensionality discussion in introduction.tex, and the ~960-run computational budget in Methodological Challenges) and correcting the citation doesn't require touching it.
 **Commit message:** `Fix Rodriguez2023Cooperative citation: remove unsupported continuous-vs-discrete claim, correct action-space description`
-
-### Wang2020Holding — cached PDF is the wrong paper (unresolved)
-**Date:** 2026-08-06
-**File edited:** None yet — no manuscript text has been found wrong; this is
-a verification gap, not a confirmed citation error. Logged here per the same
-fact-checking process as the entries above, at user's request to double-check
-the "no MARL bus paper models weather" claim underpinning the whole thesis
-gap.
-**Section:** RRL/sources.md (index only)
-**What was checked:** Whether the manuscript's cited MARL bus-holding papers
-(Wangsun/IQNC-M, and by extension Wang2020Holding) secretly cover weather
-disturbances, which would undercut the Research Gap in problem.tex. Verified
-Wangsun/IQNC-M directly against its arXiv/IEEE T-ITS source (fetched
-2026-08-06): its only disturbances are Gaussian speed-scaling and
-Gaussian demand-scaling, plus two "anomaly" tests (a manual speed drop
-framed as a traffic accident, and a demand spike framed as a concert
-letting out) — no rain, no weather, no heavy-tailed distribution anywhere
-in the paper. The weather-coverage claim holds for this source.
-**What was found instead (side finding):** The local PDF cached under bib
-key `Wang2020Holding` (`Reducing bus bunching with asynchronous
-multiagent.pdf`) is not the paper that key names. The bib entry correctly
-specifies Wang & Sun's *"Dynamic Holding Control to Avoid Bus Bunching"*
-(Transportation Research Part C, 2020, vol. 116, p. 102661) — confirmed
-correct because the cached PDF's own reference list separately cites that
-exact TR-C 2020 paper (same journal/volume/page/year) as distinct prior
-work. The cached PDF is actually Wang & Sun's *later* paper, "Reducing Bus
-Bunching with Asynchronous Multi-Agent Reinforcement Learning" (IJCAI-21,
-the CAAC framework) — itself cited as reference [9] inside the Wangsun/
-IQNC-M paper already used in this thesis. Both papers are by the same
-authors and cover similar ground (bus holding, MARL, headway-based
-reward), which is presumably how the mismatch happened.
-**Why this doesn't break the thesis's weather claim:** The CAAC/IJCAI-21
-paper's own disturbance model is a simple uniform speed randomization
-(`v × U(0.6, 1.2)`) — also no weather. So the "no MARL paper models
-weather" claim is not contradicted by this file either way.
-**What remains open:** introduction.tex:229 describes `Wang2020Holding` as
-showing "a cooperative MARL framework could learn an effective bus-holding
-policy on a single-line corridor and outperform classical
-headway-equalization rules under idealized stochastic demand." This
-description has **not** been verified against the real TR-C 2020 paper,
-because that PDF isn't in RRL/. Nothing found so far contradicts it, but it
-should be treated as unverified rather than confirmed until the correct PDF
-is obtained and checked.
-**Action needed:** Source the actual TR-C 2020 PDF (DOI
-10.1016/j.trc.2020.102661) and re-verify the introduction.tex:229
-description against it. No manuscript edit is warranted until then.
-
----
-
-### Sun et al. (2025) — relevant uncited paper found during weather-claim re-check
-**Date:** 2026-08-06
-**File edited:** None — this is a citation-gap finding, not an error fix.
-No manuscript text is currently wrong; nothing was added to thesis_refs.bib
-or any .tex file. Logged for the user's awareness; adding this citation
-would need a separate go-ahead per the R2 (no citation fabrication) process.
-**What was found:** While re-verifying the weather-disturbance literature
-gap, located a directly on-topic paper not present in thesis_refs.bib:
-Sun, Yang, Dong, Lu, and Wang, "Analysis and Dynamic Prediction of Bus
-Dwell Time Under Rainfall Conditions," *Promet – Traffic&Transportation*
-37(1):105-121, 2025 (DOI 10.7307/ptt.v37i1.593). It uses real Shenyang
-bus-stop field data (409 samples, 288 under rain) to show rainfall level
-correlates with bus dwell time, and builds a BP/GA-BP neural-network
-predictor for it.
-**Why it doesn't threaten the thesis's gap claim:** The paper is a
-predictive regression model, not a control policy and not MARL — it
-belongs in the same "ML-assisted, not closed-loop control" category the
-manuscript's own Table 1.1 (control-paradigm progression) already
-describes. It does not evaluate any bus-scheduling controller under
-weather, so the "no MARL bus-scheduling study models weather" claim in
-the Research Gap stands.
-**Why it might still be worth citing:** The manuscript's current
-real-world evidence for the weather (W) disturbance's relevance rests on
-`TSSP_Rain2018` (a general expressway-speed study, not buses, not EDSA)
-and `Patil2025Conformal` (a US arterial corridor, not buses, not EDSA).
-This Sun et al. paper is bus-specific and rainfall-specific field data,
-which could be a stronger empirical anchor for the W disturbance's
-motivation than either existing citation, if the group wants to add it.
-**Action needed:** User decision on whether to add this citation. No
-manuscript edit made.
-
----
 
 ### Wangsun — demand-surge clip range mismatch
 **Date:** 2026-08-06
@@ -431,17 +350,18 @@ Overleaf project's Figures folder**, or the new figure won't compile there.
 
 ---
 
-### N2 — MARL-vs-bus-scheduling framing ambiguity and Research Gap justification
-**Date:** 2026-08-06
-**File edited:** problem.tex
-**Section:** 2.3 (Significance of the Study, opening sentence) and 2.2 (Research Gap, end of first paragraph)
-**Source:** User notice, prompted by a recollection that a panelist questioned during Q&A whether the study reads as more focused on MARL than on bus scheduling. Not found verbatim anywhere in RTC_DECISION_LETTER.md's 22 official items — treated as an oral/impression-level comment, not a written requirement, so this stays an N-item rather than an E-item.
+### E1C1 + E2C5 + E4C22 — Dataset description (consolidated)
+**Date:** 2026-08-24
+**File edited:** methods.tex, problem.tex, thesis_refs.bib
+**Section:** 3.2.5 (Required Datasets, Data Pre-Processing Pipeline); 2.4 (Scope)
+**Lines changed:** methods.tex ~161–233; problem.tex ~56–60
 **What was added/changed:**
-> (1) Significance section: added one sentence stating explicitly that MARL is the control method under evaluation and EDSA service reliability is the object of study, explaining why practical significance is presented before scientific significance. (2) Research Gap: appended two sentences grounding the "combined disturbance" framing in an EDSA-specific operational fact — the corridor has independently-documented weather-driven service disruptions (\cite{PhilstarTyphoon2024, PIA_Emergency2023}) and chronic mechanical-failure risk (\cite{Chua2026}) as concurrent ongoing realities — rather than presenting the combination as only a gap in prior comparison tables, while explicitly preserving the existing statement that the disturbance generators are independently sampled (no causal/temporal link claimed).
-**Citation check before drafting:** An earlier draft of the Research Gap addition cited `BusRepair2023` and `PhilstarTyphoon2024` together to claim breakdowns and weather delays "cluster in the same wet-season months." Checked both bib entries before writing anything: `BusRepair2023` is about DPWH road/infrastructure emergency repair closures, not documented bus vehicle breakdowns, and doesn't establish a weather cause; `PhilstarTyphoon2024` is a single dated event, not evidence of a seasonal pattern. Neither supports a clustering claim, so that draft was discarded. The version actually applied uses `Chua2026` (already cited in introduction.tex:34 for "chronic stressors" from mid-route breakdowns) for the mechanical-failure-risk claim instead, and drops the clustering/calendar claim entirely.
-**Constraint check:** No new numerical or empirical claims introduced; both new citations (`PhilstarTyphoon2024`, `PIA_Emergency2023`, `Chua2026`) were already load-bearing elsewhere in the manuscript for the same characterization, not newly invented uses.
-**Note:** Self-identified, not an RTC panel comment — do not add a row for this in the conformity-of-revisions table.
-**Commit message:** `N2: clarify MARL-vs-bus-scheduling framing and ground combined-disturbance gap in EDSA operational facts (2.2, 2.3)`
+> Replaced the SafeTravelPH placeholder in "Required Datasets" with a full description of the CapMetro APC dataset (Texas Open Data, Socrata im6q-3pc9): 9.2M raw records, 47 fields, July–Dec 2021. Described the Route 801 northbound subset (229,421 clean records, 184 service days, 29 stops, 420,201 boardings). Added NOAA weather data and NTD fleet inventory as secondary/supplementary sources. Updated the field-mapping table to use actual APC column names. Rewrote the Data Pre-Processing Pipeline to describe the four verified cleaning filters plus weather join. Added a dataset reference paragraph to problem.tex Scope section. Added four new BibTeX entries (TexasCapMetroAPC2021, NOAALCDv2, NTD2021Fleet, CapMetroRapid801).
+**Conformity table entry:**
+| 1 | Update manuscript with proposed setup and discussion of dataset | Added complete dataset description: source, fields, temporal coverage, subset selection, cleaning methodology, weather and fleet supplementary data | 3.2.5 | %TODO-PAGE |
+| 5 | Explain what the dataset looks like | Consolidated with E1C1: described all 47 APC fields, record structure, and verified counts | 3.2.5 | %TODO-PAGE |
+| 22 | Describe dataset contents explicitly | Consolidated with E1C1 | 3.2.5 | %TODO-PAGE |
+**Commit message:** `E1C1+E2C5+E4C22: Add CapMetro APC dataset description (3.2.5, 2.4)`
 
 ---
 

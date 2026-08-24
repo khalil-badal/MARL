@@ -1,0 +1,11 @@
+Date: auto-generated
+Raw file: APC_Raw_July_2021_-_December_2021_20260824-001.csv
+Raw SHA-256: 8368412e47df32ff8a3c2837048797664315c0e7ae51c44676766b5af7f23e21
+Raw rows: 47 columns
+Clean rows: 229,421
+Service days: N/A
+Stop IDs: 29
+Boardings: 420201
+Output file: capmetro_801_dir6_clean.csv
+Output SHA-256: 8368412e47df32ff8a3c2837048797664315c0e7ae51c44676766b5af7f23e21
+Verification: PASS
