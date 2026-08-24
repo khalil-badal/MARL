@@ -8,10 +8,25 @@
 # prefix = unchanged context. GitHub renders `-` red and `+` green, so the
 # actual change is visually obvious. See AUDIT_TRAIL_READABLE.md for the
 # plain-English companion (bold-highlighted instead of diff syntax).
+#
+# STATUS TAGS (added after entry header):
+#   ACTIVE          — the AFTER text is still present in the current .tex files
+#   ACTIVE (partial)— core content survived but some callouts/references were
+#                     removed or restructured during the Texas pivot
+#   SUPERSEDED      — the AFTER text was overwritten by a later change (usually
+#                     the 2026-08-24 Texas pivot); kept for history
+#   REVERTED        — the change was undone before it shipped
+#
+# REWRITE WORKFLOW:
+#   When applying writing-style changes, a third diff block is added after
+#   the original before/after diff, showing the REWRITE replacement. The
+#   REWRITE replaces AFTER as the live manuscript text. When a REWRITE is
+#   applied, both audit trail files and the .tex file are updated together.
 
 ---
 
 ## 2026-08-06 — E1C3 — problem.tex, Section 2.2 (Research Gap)
+**Status:** SUPERSEDED — problem.tex fully rewritten for CapMetro in Texas pivot
 **Commit:** `34017d3` (entry backfilled — missed at the time)
 
 ```diff
@@ -25,6 +40,7 @@
 ---
 
 ## 2026-08-06 — E2C6 — introduction.tex 1.2.1, methods.tex Baseline Controllers
+**Status:** ACTIVE (partial) — introduction.tex failure-modes paragraph survived; methods.tex NC/FH/EH sentences superseded
 **Commit:** `34017d3` (entry backfilled)
 
 ```diff
@@ -46,6 +62,7 @@
 ---
 
 ## 2026-08-06 — E2C7 — methods.tex, Section 3.2.10
+**Status:** ACTIVE
 **Commit:** `34017d3` (entry backfilled)
 
 ```diff
@@ -65,6 +82,7 @@
 ---
 
 ## 2026-08-06 — E3C12 — introduction.tex, Section 1.2.3 (after Figure 1.3)
+**Status:** SUPERSEDED — Figure 1.3 explanation removed in Texas pivot
 **Commit:** `34017d3` (entry backfilled)
 
 ```diff
@@ -81,6 +99,7 @@
 ---
 
 ## 2026-08-06 — E3C13 — introduction.tex Section 1.1, methods.tex Section 3.2.3
+**Status:** ACTIVE (partial) — introduction.tex NLE clarification survived; methods.tex GEH independence sentence superseded
 **Commit:** `34017d3` (entry backfilled)
 
 ```diff
@@ -100,6 +119,7 @@
 ---
 
 ## 2026-08-06 — E3C8 — methods.tex, Section 3.2.6
+**Status:** ACTIVE
 **Commit:** `01c49bf`
 
 ```diff
@@ -128,6 +148,7 @@
 ---
 
 ## 2026-08-06 — E3C15 — methods.tex, Section 3.2.4 (end)
+**Status:** ACTIVE
 **Commit:** `01c49bf`
 
 ```diff
@@ -156,6 +177,7 @@
 ---
 
 ## 2026-08-06 — E4C20 — methods.tex, Section 3.2.6 (four generator subsections)
+**Status:** ACTIVE
 **Commit:** `01c49bf`
 
 ```diff
@@ -190,6 +212,7 @@
 ---
 
 ## 2026-08-06 — E4C21 — methods.tex, Sections 3.2.9 and 3.2.7
+**Status:** ACTIVE
 **Commit:** `01c49bf`
 
 ```diff
@@ -241,6 +264,7 @@
 ---
 
 ## 2026-08-06 — E1C1+E2C5+E4C22 — REVERTED
+**Status:** REVERTED
 
 **Step 1 — Added (mid-session, not committed):**
 ```diff
@@ -278,6 +302,7 @@
 ---
 
 ## 2026-08-06 — Citation fix: Patil2025Conformal — methods.tex, Section 3.2.6
+**Status:** SUPERSEDED — methods.tex Section 3.2.6 rewritten in Texas pivot
 **Commit:** `4fcc1a1` (as part of the citation-verification pass)
 
 ```diff
@@ -290,6 +315,7 @@
 ---
 
 ## 2026-08-06 — Citation fix: Rodriguez2023Cooperative — methods.tex, Section 3.2.7
+**Status:** ACTIVE
 **Commit:** `4fcc1a1`
 
 ```diff
@@ -302,6 +328,7 @@
 ---
 
 ## 2026-08-06 — Citation fix: Wangsun — methods.tex, Section 3.2.6
+**Status:** ACTIVE
 **Commit:** `b366932`
 
 ```diff
@@ -314,6 +341,7 @@
 ---
 
 ## 2026-08-06 — E3C9 + E2C4 — introduction.tex, after Section 1.2.2 (SARL)
+**Status:** SUPERSEDED — introduction.tex literature tables restructured in Texas pivot
 **Commit:** `4fcc1a1`
 
 ```diff
@@ -342,6 +370,7 @@
 ---
 
 ## 2026-08-06 — E3C10 — introduction.tex, before Table 1.2 discussion
+**Status:** SUPERSEDED — Table 1.2 discussion rewritten in Texas pivot
 **Commit:** `4fcc1a1`
 
 ```diff
@@ -355,6 +384,7 @@
 ---
 
 ## 2026-08-06 — E3C11 — figure caption attribution (introduction.tex, methods.tex)
+**Status:** ACTIVE
 **Commit:** `4fcc1a1`
 
 ```diff
@@ -369,6 +399,7 @@
 ---
 
 ## 2026-08-06 — E3C14 — problem.tex, Delimitations (a)
+**Status:** SUPERSEDED — problem.tex Scope section fully rewritten for CapMetro in Texas pivot
 **Commit:** `4fcc1a1`
 
 ```diff
@@ -381,6 +412,7 @@
 ---
 
 ## 2026-08-06 — E3C16 — figure/table callout sweep (introduction.tex, methods.tex)
+**Status:** ACTIVE (partial) — most callouts survived; some figure/table numbers shifted in Texas pivot
 **Commit:** `b15ab23`
 
 Ten one-clause insertions, each adding a missing `\ref{}` to an existing sentence next to a previously-uncited figure/table:
@@ -429,6 +461,7 @@ Ten one-clause insertions, each adding a missing `\ref{}` to an existing sentenc
 ---
 
 ## 2026-08-06 — E3C18 + E3C19 — main.tex preamble
+**Status:** ACTIVE
 **Commit:** `b15ab23`
 
 ```diff
@@ -457,6 +490,7 @@ Ten one-clause insertions, each adding a missing `\ref{}` to an existing sentenc
 ---
 
 ## 2026-08-06 — E1C2 — methods.tex, Section 3.2.5 (end)
+**Status:** ACTIVE
 **Commit:** `ce79e06`
 
 ```diff
@@ -489,6 +523,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — E3C17 — introduction.tex (Background), methods.tex (Weather-Induced Anomalies)
+**Status:** ACTIVE (partial) — corridor map figure and η-sweep table concept retained; specific EDSA content superseded by CapMetro equivalent
 **Commit:** `142502b`
 
 ```diff
@@ -538,6 +573,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — N1 (self-identified, not RTC) — methods.tex, Section 3.2.7
+**Status:** ACTIVE
 **Commit:** `14e926e`
 
 ```diff
@@ -558,6 +594,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — N2 — problem.tex, Section 2.3 (Significance)
+**Status:** SUPERSEDED — problem.tex Significance section fully rewritten for CapMetro in Texas pivot
 **Commit:** `a64f44c`
 
 ```diff
@@ -573,6 +610,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — N2 — problem.tex, Section 2.2 (Research Gap)
+**Status:** SUPERSEDED — problem.tex Research Gap section fully rewritten for CapMetro in Texas pivot
 **Commit:** `a64f44c`
 
 ```diff
@@ -587,6 +625,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-06 — N1 rewrite (user-provided prose) — methods.tex, Section 3.2.7
+**Status:** ACTIVE
 **Commit:** `79085f4`
 
 ```diff
@@ -614,6 +653,7 @@ Also added `\label{subsec:control-stop-selection}` to the previously-unlabeled "
 ---
 
 ## 2026-08-24 — Texas CapMetro pivot + E1C1/E2C5/E4C22 — introduction.tex, problem.tex, methods.tex, main.tex, thesis_refs.bib
+**Status:** ACTIVE
 **Commit:** `aff79b0`
 
 This commit applies the full Texas CapMetro rewrite from Jared's branch (`dataset/texas-capmetro-801` on `Jrddlol2/MARL_THESIS_TEXASAPC_DATASET`), which was audited and verified before adoption. The EDSA-focused versions of all .tex files are preserved in `EDSA Ver/`. The changes are extensive — the diffs below cover the dataset-description sections that directly answer E1C1/E2C5/E4C22; see the full file diffs in the commit for the complete scope of the pivot.

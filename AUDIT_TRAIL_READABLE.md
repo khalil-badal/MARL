@@ -16,10 +16,27 @@
 # AUDIT_TRAIL.md. This file is for reading, discussing, and drafting.
 # Keep both in sync: whenever AUDIT_TRAIL.md gets a new entry, add the same
 # entry here in this BEFORE/AFTER format.
+#
+# STATUS TAGS (added after entry header):
+#   ACTIVE          — the AFTER text is still present in the current .tex files
+#   ACTIVE (partial)— core content survived but some callouts/references were
+#                     removed or restructured during the Texas pivot
+#   SUPERSEDED      — the AFTER text was overwritten by a later change (usually
+#                     the 2026-08-24 Texas pivot); kept for history
+#   REVERTED        — the change was undone before it shipped
+#
+# REWRITE WORKFLOW:
+#   When applying writing-style changes, a third block is added:
+#     **BEFORE**  — original text before the revision
+#     **AFTER**   — revision agent's (or Jared's) version
+#     **REWRITE** — user's writing-style-adjusted version
+#   The REWRITE replaces AFTER as the live manuscript text. When a REWRITE
+#   is applied, both audit trail files and the .tex file are updated together.
 
 ---
 
 ## 2026-08-06 — E1C3 — problem.tex, Section 2.2 (Research Gap)
+**Status:** SUPERSEDED — problem.tex fully rewritten for CapMetro in Texas pivot
 
 **BEFORE**
 
@@ -34,6 +51,7 @@ The Research Gap paragraph ended with: "It cannot be determined whether reported
 ---
 
 ## 2026-08-06 — E2C6 — introduction.tex 1.2.1, methods.tex Baseline Controllers
+**Status:** ACTIVE (partial) — introduction.tex failure-modes paragraph survived; methods.tex NC/FH/EH sentences superseded
 
 **BEFORE (introduction.tex)**
 
@@ -58,6 +76,7 @@ Similar one-sentence additions were made to Forward Headway and Even Headway's s
 ---
 
 ## 2026-08-06 — E2C7 — methods.tex, Section 3.2.10
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -72,6 +91,7 @@ The acceptance criterion was one sentence buried inside a longer paragraph: "The
 ---
 
 ## 2026-08-06 — E3C12 — introduction.tex, Section 1.2.3 (after Figure 1.3)
+**Status:** SUPERSEDED — Figure 1.3 explanation removed in Texas pivot
 
 **BEFORE**
 
@@ -86,6 +106,7 @@ Nothing existed between Figure 1.3's caption and the next paragraph, which start
 ---
 
 ## 2026-08-06 — E3C13 — introduction.tex Section 1.1, methods.tex Section 3.2.3
+**Status:** ACTIVE (partial) — introduction.tex NLE clarification survived; methods.tex GEH independence sentence superseded
 
 **BEFORE (introduction.tex)**
 
@@ -108,6 +129,7 @@ Nothing existed between Figure 1.3's caption and the next paragraph, which start
 ---
 
 ## 2026-08-06 — E3C8 — methods.tex, Section 3.2.6
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -130,6 +152,7 @@ Followed by a paragraph stating the four generators (S, T, W, B) are injected in
 ---
 
 ## 2026-08-06 — E3C15 — methods.tex, Section 3.2.4 (end)
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -148,6 +171,7 @@ Section 3.2.4 ended with "A condition is a state of the world; a controller is a
 ---
 
 ## 2026-08-06 — E4C20 — methods.tex, Section 3.2.6 (four generator subsections)
+**Status:** ACTIVE
 
 Added one implementation-mechanics sentence to each of the four disturbance generator descriptions, explaining exactly when the random value is sampled and how it's applied. Before each addition, the paragraph described what the generator represents statistically but never said when or how the sampling actually happens during a run.
 
@@ -172,6 +196,7 @@ Added one implementation-mechanics sentence to each of the four disturbance gene
 ---
 
 ## 2026-08-06 — E4C21 — methods.tex, Sections 3.2.9 and 3.2.7
+**Status:** ACTIVE
 
 **BEFORE (3.2.9 opening)**
 
@@ -212,6 +237,7 @@ The section reads exactly as it did before this session started: the "Corridor b
 ---
 
 ## 2026-08-06 — Citation fix: Patil2025Conformal — methods.tex, Section 3.2.6
+**Status:** SUPERSEDED — methods.tex Section 3.2.6 rewritten in Texas pivot
 
 **BEFORE**
 
@@ -226,6 +252,7 @@ The section reads exactly as it did before this session started: the "Corridor b
 ---
 
 ## 2026-08-06 — Citation fix: Rodriguez2023Cooperative — methods.tex, Section 3.2.7
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -240,6 +267,7 @@ The section reads exactly as it did before this session started: the "Corridor b
 ---
 
 ## 2026-08-06 — Citation fix: Wangsun — methods.tex, Section 3.2.6
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -254,6 +282,7 @@ The section reads exactly as it did before this session started: the "Corridor b
 ---
 
 ## 2026-08-06 — E3C9 + E2C4 — introduction.tex, after Section 1.2.2 (SARL)
+**Status:** SUPERSEDED — introduction.tex literature tables restructured in Texas pivot
 
 **BEFORE**
 
@@ -280,6 +309,7 @@ The SARL limitations section ended with a paragraph about SA-DRL's competitive r
 ---
 
 ## 2026-08-06 — E3C10 — introduction.tex, before Table 1.2 discussion
+**Status:** SUPERSEDED — Table 1.2 discussion rewritten in Texas pivot
 
 **BEFORE**
 
@@ -294,6 +324,7 @@ The paragraph right before the Table 1.2 summary jumped straight into: "Table 1.
 ---
 
 ## 2026-08-06 — E3C11 — figure caption attribution (introduction.tex, methods.tex)
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -308,6 +339,7 @@ The paragraph right before the Table 1.2 summary jumped straight into: "Table 1.
 ---
 
 ## 2026-08-06 — E3C14 — problem.tex, Delimitations (a)
+**Status:** SUPERSEDED — problem.tex Scope section fully rewritten for CapMetro in Texas pivot
 
 **BEFORE**
 
@@ -322,6 +354,7 @@ The paragraph right before the Table 1.2 summary jumped straight into: "Table 1.
 ---
 
 ## 2026-08-06 — E3C16 — figure/table callout sweep (introduction.tex, methods.tex)
+**Status:** ACTIVE (partial) — most callouts survived; some figure/table numbers shifted in Texas pivot
 
 Ten short additions, each linking an existing sentence to a figure/table that was never explicitly named anywhere in the prose:
 
@@ -344,6 +377,7 @@ Ten short additions, each linking an existing sentence to a figure/table that wa
 ---
 
 ## 2026-08-06 — E3C18 + E3C19 — main.tex preamble
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -358,6 +392,7 @@ The `setspace` package was not loaded and `\onehalfspacing` was not called. The 
 ---
 
 ## 2026-08-06 — E1C2 — methods.tex, Section 3.2.5 (end)
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -385,6 +420,7 @@ The "Required Datasets" bullet list (GPS location, boarding events, alighting ev
 ---
 
 ## 2026-08-06 — E3C17 — introduction.tex (Background), methods.tex (Weather-Induced Anomalies)
+**Status:** ACTIVE (partial) — corridor map figure and η-sweep table concept retained; specific EDSA content superseded by CapMetro equivalent
 
 **BEFORE**
 
@@ -403,6 +439,7 @@ The corridor was described in prose only, with no map figure. The Introduction h
 ---
 
 ## 2026-08-06 — N2 (self-identified, not RTC) — problem.tex, Section 2.3 (Significance)
+**Status:** SUPERSEDED — problem.tex Significance section fully rewritten for CapMetro in Texas pivot
 
 **BEFORE**
 
@@ -419,6 +456,7 @@ The Significance section opened with a single plain sentence: "This study contri
 ---
 
 ## 2026-08-06 — N2 (self-identified, not RTC) — problem.tex, Section 2.2 (Research Gap)
+**Status:** SUPERSEDED — problem.tex Research Gap section fully rewritten for CapMetro in Texas pivot
 
 **BEFORE**
 
@@ -437,6 +475,7 @@ The same sentence stays, followed by: "**This joint-disturbance framing reflects
 ---
 
 ## 2026-08-06 — N1 (self-identified, not RTC) — methods.tex, Section 3.2.7
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -457,6 +496,7 @@ The Reward Function subsection ended with: "This study defines the reward struct
 ---
 
 ## 2026-08-06 — N1 rewrite (user-provided prose) — methods.tex, Section 3.2.7
+**Status:** ACTIVE
 
 **BEFORE**
 
@@ -475,6 +515,7 @@ The Reward Function subsection ended with: "This study defines the reward struct
 ---
 
 ## 2026-08-24 — Texas CapMetro pivot + E1C1/E2C5/E4C22 — all major .tex files
+**Status:** ACTIVE
 
 This entry covers the full adoption of Jared's Texas CapMetro rewrite (from his `dataset/texas-capmetro-801` branch, audited and verified before merge). EDSA-focused versions are preserved in `EDSA Ver/`. The changes below highlight the dataset-description content that directly answers E1C1/E2C5/E4C22; the full file diffs are in commit `aff79b0`.
 
