@@ -36,6 +36,42 @@ before trusting any specific factual claim attributed to a citation — several
 have already been found wrong by checking against the actual source PDFs
 (see the "Source Verification" entries in `TRACKER.md`).
 
+### The REWRITE workflow (applying the user's own writing-style edits)
+
+Once a revision task has landed and shipped, the user may come back with
+their own polished version of that same passage — a REWRITE. Do not treat
+this as a fresh revision task or reopen `REVISION_QUEUE.md`; it's a
+writing-style pass over text that's already substantively correct. Handle it
+like this:
+
+1. **Find the entry.** Locate the audit trail entry (in
+   `AUDIT_TRAIL_READABLE.md`) whose **AFTER** text matches what the user is
+   rewriting. It must currently be tagged `ACTIVE` — never apply a rewrite on
+   top of a `SUPERSEDED` or `REVERTED` entry, since that text isn't live in
+   the manuscript anymore. If the entry is `mixed`, apply the rewrite only to
+   the specific sub-part the user is targeting.
+2. **Create a new entry, dated today.** In both `AUDIT_TRAIL.md` and
+   `AUDIT_TRAIL_READABLE.md`, append a new entry (not an edit to the old
+   one) with:
+   - **BEFORE** = the old entry's **AFTER** text, quoted exactly as it
+     appears there
+   - **AFTER** = the user's REWRITE text, quoted exactly as supplied
+   - a `**Status:** ACTIVE` tag
+   - a one-line `**Why:**` noting this is a user-supplied writing-style
+     rewrite of the entry it follows (name that entry by its task ID/date)
+3. **Update the manuscript.** Apply the REWRITE text to the actual `.tex`
+   file, replacing the old AFTER text exactly where it lives.
+4. **Leave the original entry alone.** Don't retag the original entry as
+   SUPERSEDED — the rewrite is a style pass, not a substantive replacement,
+   and the original entry is still the correct historical record of what the
+   RTC comment actually required. The new entry's BEFORE/AFTER makes the
+   lineage from original → rewrite fully traceable on its own.
+5. **BEFORE/AFTER must be real quoted text, never narration.** Don't write
+   "the paragraph was reworded to sound more natural" — quote the actual
+   sentences, exactly as they read in the .tex file, with the changed part
+   bolded in the AFTER block. No `...` truncation either: if a sentence is
+   long, quote all of it.
+
 ## Start here if you're a human contributor
 
 Same files, different angle: `REVISION_QUEUE.md` tells you what's left to
