@@ -191,11 +191,11 @@ GPS-tracked vehicle location &
 Per-segment inter-stop travel time distribution ($\mu$, $\sigma$) &
 SUMO speed calibration (RMSE, Section~\ref{subsec:stochastic-vars}); anchors the traffic-speed generator ($\sigma_s$) and the weather generator's baseline mean ($\mu$) \\
 
-Boarding events (per stop) &
+Boarding events &
 Per-(stop, time-of-day) baseline demand rate &
 Demand surge generator baseline ($\sigma_d$); waiting-passenger-count feature in the agent's local observation \\
 
-Alighting events (per stop) &
+Alighting events &
 Through-passenger volume per stop &
 Control-stop selection criterion 3 (low through-volume preference, Section~\ref{subsec:control-stop-selection}) \\
 
@@ -207,7 +207,7 @@ Operating speed &
 Per-segment baseline cruising speed &
 SUMO bus-volume calibration (GEH); traffic-speed generator baseline ($\sigma_s$) \\
 
-Dwell time at each stop &
+Dwell time &
 Per-(stop, time-of-day) dwell time distribution &
 Event-driven bus model, used between control events to advance the simulation clock \\
 
