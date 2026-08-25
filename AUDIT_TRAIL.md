@@ -835,7 +835,7 @@ Plus 6 new entries (previously documented correctly): `TexasCapMetroAPC2021`, `C
 
 ## 2026-08-25 — REVERT of main.tex title subtitle
 **Status:** ACTIVE
-**Commit:** (uncommitted — pending)
+**Commit:** `93a8f62`
 
 ```diff
 - \title{An Evaluation of Multi-Agent Reinforcement Learning for Dynamic Bus Scheduling Under Non-Ideal Conditions: A CapMetro Rapid Case Study}
