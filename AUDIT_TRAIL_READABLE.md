@@ -36,7 +36,7 @@
 ---
 
 ## 2026-08-06 — E1C3 — problem.tex, Section 2.2 (Research Gap)
-**Status:** SUPERSEDED — problem.tex fully rewritten for CapMetro in Texas pivot
+**Status:** SUPERSEDED — problem.tex fully rewritten for CapMetro in Texas pivot. See "2026-08-24 — Texas CapMetro pivot," problem.tex → Research Gap, for the replacement text.
 
 **BEFORE**
 
@@ -114,7 +114,7 @@ Similar one-sentence additions were made to Forward Headway and Even Headway's s
 ---
 
 ## 2026-08-06 — E3C13 — introduction.tex Section 1.1, methods.tex Section 3.2.3
-**Status:** SUPERSEDED — both sub-parts removed in Texas pivot (intro.tex NLEx paragraph inside `\iffalse`; methods.tex EDSA calibration sentence deleted)
+**Status:** SUPERSEDED — both sub-parts removed in Texas pivot (intro.tex NLEx paragraph inside `\iffalse`; methods.tex EDSA calibration sentence deleted). The GEH/RMSE calibration targets themselves were also redefined (bus volume → stop-event counts; speed RMSE → travel-time RMSE); see "2026-08-24 — Texas CapMetro pivot," methods.tex item 1.
 
 **BEFORE (introduction.tex)**
 
@@ -322,7 +322,7 @@ Same as BEFORE — the drafted block was removed entirely before any commit.
 ---
 
 ## 2026-08-06 — Citation fix: Patil2025Conformal — methods.tex, Section 3.2.6
-**Status:** SUPERSEDED — methods.tex Section 3.2.6 rewritten in Texas pivot
+**Status:** SUPERSEDED — methods.tex Section 3.2.6 rewritten in Texas pivot. The weather generator's role changed from replacing T to composing with it, and the lognormal factor is now unit-mean rather than mean-μ; see "2026-08-24 — Texas CapMetro pivot," methods.tex item 4.
 
 **BEFORE**
 
@@ -367,7 +367,7 @@ Same as BEFORE — the drafted block was removed entirely before any commit.
 ---
 
 ## 2026-08-06 — E3C9 + E2C4 — introduction.tex, after Section 1.2.2 (SARL)
-**Status:** SUPERSEDED — introduction.tex literature tables restructured in Texas pivot
+**Status:** SUPERSEDED — introduction.tex literature tables restructured in Texas pivot. Specifically: the Verbich & El-Geneidy row this entry added was removed and replaced with a Sun et al. row; see "2026-08-24 — Texas CapMetro pivot," introduction.tex item 3, for the exact before/after.
 
 **BEFORE**
 
@@ -398,7 +398,7 @@ Same as BEFORE — the drafted block was removed entirely before any commit.
 ---
 
 ## 2026-08-06 — E3C10 — introduction.tex, before Table 1.2 discussion
-**Status:** SUPERSEDED — Table 1.2 discussion rewritten in Texas pivot
+**Status:** SUPERSEDED — Table 1.2 discussion rewritten in Texas pivot. Specifically: Shi et al. was reclassified from a B (breakdown) entry to D, T, and two new "adjacent evidence" rows (Cao et al., Guedes and Borenstein) were added; see "2026-08-24 — Texas CapMetro pivot," introduction.tex item 4, for the exact before/after.
 
 **BEFORE**
 
@@ -432,7 +432,7 @@ Same as BEFORE — the drafted block was removed entirely before any commit.
 ---
 
 ## 2026-08-06 — E3C14 — problem.tex, Delimitations (a)
-**Status:** SUPERSEDED — problem.tex Scope section fully rewritten for CapMetro in Texas pivot
+**Status:** SUPERSEDED — problem.tex Scope section fully rewritten for CapMetro in Texas pivot. The physically-separated-busway argument this entry added does not appear in the replacement text; see "2026-08-24 — Texas CapMetro pivot," problem.tex → Scope and Limitations.
 
 **BEFORE**
 
@@ -567,7 +567,7 @@ The mapping from η to named weather severity is not established."
 ---
 
 ## 2026-08-06 — N2 (self-identified, not RTC) — problem.tex, Section 2.3 (Significance)
-**Status:** SUPERSEDED — problem.tex Significance section fully rewritten for CapMetro in Texas pivot
+**Status:** SUPERSEDED — problem.tex Significance section fully rewritten for CapMetro in Texas pivot; see "2026-08-24 — Texas CapMetro pivot," problem.tex → Significance of the Study.
 
 **BEFORE**
 
@@ -584,7 +584,7 @@ The mapping from η to named weather severity is not established."
 ---
 
 ## 2026-08-06 — N2 (self-identified, not RTC) — problem.tex, Section 2.2 (Research Gap)
-**Status:** SUPERSEDED — problem.tex Research Gap section fully rewritten for CapMetro in Texas pivot
+**Status:** SUPERSEDED — problem.tex Research Gap section fully rewritten for CapMetro in Texas pivot; see "2026-08-24 — Texas CapMetro pivot," problem.tex → Research Gap.
 
 **BEFORE**
 
@@ -643,45 +643,107 @@ The mapping from η to named weather severity is not established."
 ---
 
 ## 2026-08-24 — Texas CapMetro pivot + E1C1/E2C5/E4C22 — all major .tex files
+**Status:** mixed — see per-file breakdown below. **Corrected 2026-08-25:** this entry originally covered only a small excerpt of the actual diff and contained one fabricated claim (a nonexistent NTD fleet-data citation). Rewritten to accurately and comprehensively reflect the full commit `aff79b0`.
+
+This entry covers the full adoption of Jared's Texas CapMetro rewrite (from his `dataset/texas-capmetro-801` branch, audited and verified before merge). EDSA-focused versions are preserved in `EDSA Ver/`. The diff touched ~450 lines across `introduction.tex` (100), `problem.tex` (63), `methods.tex` (221), `main.tex` (5), and `thesis_refs.bib` (68). Every substantive change is summarized below; wording-only polish is grouped into compact "also changed" lists rather than quoted line-by-line.
+
+### introduction.tex
+
+**Load-bearing changes (full quotes):**
+
+1. **New CapMetro background section added** at the top of "Background of the Study" (route selection, dataset feasibility, weather join) — this is the content that satisfies E1C1/E2C5/E4C22 for introduction.tex, distinct from the problem.tex content below. Opens with: "High-frequency bus services are vulnerable to bus bunching because a small delay gives the affected bus more time to accumulate passengers, lengthens its dwell, and further reduces the gap to the following bus... This study grounds that control problem in CapMetro Rapid Route 801 in Austin, Texas." Includes a new route-selection table (Route 801 vs. 803: 455,654 vs. 376,801 clean stop events, 810,309 vs. 532,063 boardings) and a weather-feasibility paragraph (NOAA join matched 100% of 229,421 primary events; 11,804 Camp Mabry rain-exposed events).
+
+2. **EDSA-specific background wrapped in `\iffalse`** (not compiled) rather than deleted — the original EDSA paragraph ("The public transportation system has long been a commodity...") is preserved in source but inactive.
+
+3. **ML/SARL disturbance-coverage table: Verbich & El-Geneidy row REMOVED, replaced with a Sun et al. row.** This directly supersedes what the E3C9+E2C4 entry (2026-08-06) added.
+   - **BEFORE:** "Verbich and El-Geneidy — Heuristic (non-MARL) — Dynamic transit control under severe weather and vehicle breakdowns — W, B"
+   - **AFTER:** "Sun et al. — ML prediction (non-control) — SVM, KNN, BP, and GA-BP prediction of bus dwell time under measured rainfall — W"
+   - The paragraph after the table was also rewritten: "The comparison separates evidence by function. Sun et al. empirically analyze and predict bus dwell time under measured rainfall, so they support the relevance of W but do not provide a controller baseline... Within the reviewed set, no MARL bus-scheduling study evaluates both W and B, which is the narrower gap tested by this study." (replaces the old "funnel is now complete... Verbich and El-Geneidy's heuristic controller addresses both" framing).
+
+4. **MARL performance table: Shi et al. reclassified from "D, B" to "D, T"; two new "adjacent breakdown-control evidence" rows added (Cao et al., Guedes and Borenstein).** This directly supersedes what the E3C10 entry (2026-08-06) established.
+   - **BEFORE (table cell):** "Shi et al. (2022) — Distributed DRL — Connected environment — D, B — Integrated control gains"
+   - **AFTER (table cell):** "Shi et al. (2022) — Distributed DRL — Connected environment — D, T — Integrated control gains" plus two new rows under a new "Adjacent breakdown-control evidence (not MARL bus control)" heading: "Cao et al. (2022) — MARL rescheduling — Flatland rail network — B — Adaptation under train malfunctions" and "Guedes and Borenstein (2018) — Heuristic rescheduling — Real public-transit bus network — B — Recovery after vehicle failures."
+   - The reconciling paragraph was rewritten: "The two B entries reconcile the breakdown studies as adjacent evidence without misclassifying either one... Source verification also showed that Shi et al. study uncertain passenger demand and interstation travel time (D, T), not breakdowns. Consequently, none of the B entries in Table 1.2 is a prior MARL bus-scheduling controller." (replaces the old "Only Shi et al. carries a breakdown (B) entry" claim).
+
+5. **Weather/traffic-speed composition reversed.** This is a design-level change, not just wording, and it affects methods.tex identically (see below).
+   - **BEFORE:** "Under the non-ideal evaluation regime the weather generator (W) **replaces** the traffic-speed generator (T) as the source of inter-stop travel-time variability rather than acting alongside it... the two are not composed on the same segment."
+   - **AFTER:** "Demand (D) and empirical traffic-time variability (T) remain active in every evaluation phase. Under the non-ideal regime, the synthetic weather factor (W) is **composed multiplicatively with the empirical T draw rather than replacing it**... Thus a 'W-only' ablation means D+T+W with S and B inactive."
+
+**Also changed (wording/framing, content-preserving):** the state-space dimensionality paragraph (M=24→M=29 stops, EDSA-specific fleet numbers removed); the Zhang/Zheng SARL counter-position paragraph (reworded for Route 801's single-direction framing instead of "EDSA Carousel sub-corridor"); one citation swap in the ML-assisted-frameworks paragraph (`verbich2021`→`Barrera2025Optimization`, since Verbich's citation key was retired); the CTDE paragraph and its figure caption (reworded to describe the shared-replay-buffer mechanism explicitly); the "Recent work has increasingly examined..." paragraph (Shi et al.'s description corrected to match the D,T reclassification above); the "Across this trajectory" paragraph (EDSA-specific idealizing-assumptions framing replaced with CapMetro APC/NOAA framing); the paragraph after the MARL table (EDSA disturbance-profile language replaced with CapMetro framing); the "This study" row in the MARL table ("Calibrated EDSA SUMO"→"Calibrated CapMetro Route 801 SUMO").
+
+### problem.tex — full section-by-section rewrite
+
+Every section was rewritten, not only the Rationale opening previously documented:
+
+- **Rationale:** opens with "High-frequency bus operation is a sequential control problem..." (CapMetro Route 801 framing, route-selection justification, NOAA weather-feasibility summary) replacing the old EDSA/Metro-Manila opening.
+- **Research Gap:** rewritten to "Existing MARL bus-control studies report improvements in waiting time or headway regularity, but many experiments retain stationary demand, symmetric travel-time noise, or a failure-free fleet... The literature review identified no MARL bus-scheduling study that combines demand surges, ordinary traffic variability, heavy-tailed weather stress, and discrete breakdowns in one public-data-calibrated corridor evaluation." — this also **replaces** the 2026-08-06 N2 (Research Gap) addition and the E1C3 addition (both previously tagged SUPERSEDED without saying what replaced them; this is what replaced them).
+- **Research Objectives:** Main Objective and all three Specific Objectives reworded around Route 801 direction code 6; Expected Outputs 1.1–3.2 rewritten with CapMetro-specific deliverables (documented pipeline, held-out validation, activation-matrix components).
+- **Significance of the Study:** both Practical and Scientific significance paragraphs rewritten around the CapMetro evidence package framing — this **replaces** the 2026-08-06 N2 (Significance) addition.
+- **Scope and Limitations:** rewritten around Route 801/direction code 6/July–December 2021, with a new explicit activation-matrix description (D+T always on; S/W/B domain-randomized in training; Stage A = D+T; Stage B = D+T+S+W+B) and eight lettered limitations specific to APC data (no passenger arrival times, coordinate quality, `rev_distance` units unresolved, etc.) — this **replaces** the 2026-08-06 E3C14 addition (minor-road exclusion justification) with a differently-scoped limitations list; the physically-separated-busway argument from E3C14 does not appear in the new version.
+
+### methods.tex — extensive rewrite across nearly every subsection
+
+**Load-bearing changes (full quotes):**
+
+1. **GEH/RMSE calibration redefined.** The calibration targets themselves changed, not just their wording.
+   - **BEFORE:** "Two industry-standard calibration metrics are used: the GEH statistic for bus volume on the dedicated corridor, and the Root Mean Square Error (RMSE) for bus speed trajectories."
+   - **AFTER:** "GEH is applied to hourly stop-event or departure counts where the observed and simulated quantities are defined identically. RMSE is applied primarily to segment travel time from `rev_seconds`. Average speed may be added only after the unit of `rev_distance` is confirmed from authoritative odometer metadata." Section renamed from "Speed Trajectory Calibration via RMSE" to "Segment Travel-Time Calibration via RMSE."
+
+2. **New activation-matrix table added**, replacing the old ideal/non-ideal binary framing:
+
+   | Condition | D | T | S | W | B |
+   |---|---|---|---|---|---|
+   | Training | on | on | randomized | randomized | randomized |
+   | Stage A baseline | on | on | off | off | off |
+   | Stage B combined | on | on | on | on | on |
+   | S ablation | on | on | on | off | off |
+   | W ablation | on | on | off | on | off |
+   | B ablation | on | on | off | off | on |
+
+3. **New Required Datasets structure** (already partially documented in the original version of this entry, corrected below) — three numbered items (CapMetro APC event data, NOAA LCDv2 weather, historical schedule and fleet metadata) plus a new 9-row field-mapping table ("Verified CapMetro/NOAA fields and their modeling roles"). **Correction:** the previous version of this audit entry claimed a "Vehicle fleet data (supplementary). 2021 NTD Revenue Vehicle Inventory (NTD ID 60048)" bullet — this does not exist anywhere in the actual manuscript. The real third item reads: "Historical schedule and fleet metadata. A 2021-compatible GTFS snapshot is required for authoritative direction labels, stop names, route shape, and scheduled headway; a verified fleet source is required for capacity... direction 6 remains code-only and schedule/capacity parameters remain %TODO-DATA." No NTD citation exists in the current `.bib` or `.tex` files.
+
+4. **Weather/traffic-speed composition reversed** (same change as introduction.tex above, applied directly to the disturbance-generator definitions):
+   - **BEFORE (T):** "an episode-level scaling of corridor cruising speed, with standard deviation σ_s, representing everyday congestion friction. T governs inter-stop travel-time variability under ideal conditions."
+   - **AFTER (T):** "the always-present empirical per-(segment, time-of-day, day-type) distribution derived from `rev_seconds`. An optional episode-level stress scale f_s may broaden this baseline..."
+   - **BEFORE (W):** "a per-segment travel-time distribution with coefficient of variation η, drawn from a right-skewed lognormal rather than the Gaussian-based scaling used by T. W replaces T as the source of travel-time stochasticity once η > 0."
+   - **AFTER (W):** "an additive experimental layer. Within observed support, W is estimated by comparing rain-exposed and dry observations within segment/time/day strata. Outside that support, W is a labeled synthetic lognormal stress with coefficient of variation η. **W composes with rather than replaces T.**" A new composition equation was added: T_W = T_0 · m(w) · F_W.
+   - The Weather-Induced Anomalies subsection was restructured into two explicit layers ("Observed ordinary weather" via the NOAA join, and "Synthetic severe/extreme weather" outside observed support), replacing the old single-layer lognormal description.
+
+5. **Bus Breakdowns subsection: new citations and synthetic-stressor framing added.** "Cao et al. model Poisson train malfunctions in an adjacent MARL rescheduling setting, while Guedes and Borenstein model serious public-transit vehicle failures in heuristic real-time rescheduling. These sources support the event/removal semantics, not an empirical CapMetro failure rate; the APC data contain no breakdown field. Breakdowns are therefore a labeled synthetic stressor..." (previously the subsection just cited Cao et al. and Shi et al. without the "not an empirical rate" framing).
+
+6. **Stage A and Stage B evaluation redefined** to match the activation matrix: "Ideal-condition evaluation" (η=0, all generators disabled) became "**Stage A: baseline evaluation**" (D+T only, stochastic not deterministic). "Non-ideal-condition evaluation" (η sweep with breakdown always active) became "**Stage B: combined-disturbance evaluation**" (D+T+S+W+B, with a separate observed-ordinary-rain series and a synthetic η sweep series).
+
+7. **Evaluation run count recalculated**: the old computational-cost paragraph totaled "approximately 960 evaluation runs" (Stage A 120 + Stage B 480 + ablations 360). The new paragraph totals "**1,080 evaluation runs**" (Stage A 120 + observed-weather combined cell 120 + synthetic sweep 480 + ablations 360) — the extra 120-run "observed-weather combined cell" is new, reflecting the added observed/synthetic weather split.
+
+**Also changed (wording/framing, content-preserving, not reproduced in full):** chapter-opening paragraph (EDSA→Route 801 framing); Research Design section (activation-matrix language introduced); Simulation Environment section (SUMO role description); Control-Stop Selection (M=29 stops); Real-Time Data Incorporation paragraph (which real-world systems map to which synthetic signal); Data Pre-Processing Pipeline (3 stages→4 stages, previously documented); notation table (η's definition narrowed to "synthetic out-of-support" stress; N split into N and N_runs); Random Seed Control (named per-disturbance-class substreams introduced); observation-features table ("disturbance intensity flag"→"weather exposure/stress flag"; waiting-count note clarified as simulated, not an APC field); Action Space stop-skipping description (removed an unverified "near capacity" trigger condition since vehicle capacity is still %TODO-DATA); Proposed Learning Algorithm's CTDE explanation (clarified that centralization means one shared learner/replay buffer, not a joint-state actor); Training and Execution Protocol (matched to the activation matrix); No Control baseline description; Data Analysis Methods (N→N_runs, explicit bootstrap-interval requirement for heavy-tailed responses added); Timeline Feasibility paragraph (old fixed hour/GPU estimates replaced with "no wall-clock duration is claimed before the simulator is profiled").
+
+### main.tex
+
+- **Title changed** from "An Evaluation of Multi-Agent Reinforcement Learning for Dynamic Bus Scheduling Under Non-Ideal Conditions" to add a subtitle ": A CapMetro Rapid Case Study." This was undocumented in the original version of this entry. **REVERTED 2026-08-25 — see the entry below; the user did not approve the subtitle.**
+- A stray, non-functional `\includeonly[` line was removed from the preamble (dead code, no functional effect).
+
+### thesis_refs.bib
+
+- **`verbich2021` citation entry REMOVED entirely**, not just unused — this is a deletion the original version of this entry never mentioned. Its removal is what made the introduction.tex table change (item 3 above) possible.
+- **`Shi2022DistDRL`'s author list corrected**: "Shi, Hongsheng and Nie, Qifeng and Fu, Shuai and Wang, Xinyue" → "Shi, Haotian and Nie, Qinghui and Fu, Sicheng and Wang, Xin" (a citation-accuracy fix; a DOI was also added). Not previously documented as a citation fix.
+- 6 new entries added (previously documented correctly): `TexasCapMetroAPC2021`, `CapMetroRapid`, `CapMetroGTFS`, `NOAALCDv2`, `SunRain2025`, `Guedes2018Rescheduling`.
+
+**Why:** E1C1 ("Update manuscript with proposed setup and discussion of dataset"), E2C5 ("Explain what the dataset looks like"), E4C22 ("Describe dataset contents explicitly") — all three previously blocked on dataset access, now completed via the introduction.tex and methods.tex dataset-description content above. The broader EDSA-to-CapMetro pivot was done on Jared's branch and adopted after a full audit. This entry was corrected on 2026-08-25 after the user asked whether all of Jared's pushed content was accurately documented — it was not; see the correction notes embedded above.
+
+---
+
+## 2026-08-25 — REVERT of main.tex title subtitle
 **Status:** ACTIVE
 
-This entry covers the full adoption of Jared's Texas CapMetro rewrite (from his `dataset/texas-capmetro-801` branch, audited and verified before merge). EDSA-focused versions are preserved in `EDSA Ver/`. The changes below highlight the dataset-description content that directly answers E1C1/E2C5/E4C22; the full file diffs are in commit `aff79b0`.
+**BEFORE (title as shipped in the Texas pivot, commit `aff79b0`)**
 
-### methods.tex — Required Datasets (Section 3.2.5)
+"An Evaluation of Multi-Agent Reinforcement Learning for Dynamic Bus Scheduling Under Non-Ideal Conditions: A CapMetro Rapid Case Study"
 
-**BEFORE**
+**AFTER (reverted)**
 
-Corridor bus operational data. A per-trip record of EDSA Carousel bus operation along the study sub-corridor, collected over a continuous observation window of at least two weeks. The required fields are GPS-tracked vehicle location, boarding and alighting events, passenger occupancy, operating speed, and dwell time at each stop. The baseline operating point for this study is established from a crowdsourced operational record collected from the EDSA Busway during July 2023 through the SafeTravelPH mobile application.
+"An Evaluation of Multi-Agent Reinforcement Learning for Dynamic Bus Scheduling Under Non-Ideal Conditions"
 
-**AFTER**
-
-**Corridor operational data (primary).** The primary dataset is the Capital Metropolitan Transportation Authority (CapMetro) Automatic Passenger Counter (APC) raw archive for **July–December 2021** (Texas Open Data Portal, Socrata dataset ID im6q-3pc9). The archive contains **9,197,694 stop-level event records across 47 columns**. Each record is a single bus stop visit with: calendar fields, route and trip identifiers, stop spatial data (bs_id, stop_sequence, GPS), passenger activity (ons, offs, load, max_load), temporal measurements (departure_dtm), vehicle identifiers, and quality flags (import_error, import_trip_error).
-
-**Weather data (secondary).** NOAA Local Climatological Data Version 2, Camp Mabry station (USW00013958), same July–December 2021 period. Joined to APC records by nearest-hour timestamp.
-
-**Vehicle fleet data (supplementary).** 2021 NTD Revenue Vehicle Inventory (NTD ID 60048) for per-vehicle capacity confirmation.
-
-### methods.tex — Data Pre-Processing Pipeline (Section 3.2.5)
-
-**BEFORE**
-
-Pre-processing proceeds in three stages. Stage 1: Cleaning — trip records with missing GPS coordinates, missing timestamps, negative inter-stop times, or trips that fail integrity checks are dropped. Records filtered to regular weekdays and binned by time-of-day. Stage 2: Empirical distribution extraction. Stage 3: Train/validation split for calibration.
-
-**AFTER**
-
-Pre-processing proceeds in four stages. **Stage 1: Filtering and validation** — the raw APC archive is filtered using four sequential rules: (1) route consistency (current_route_id equals route_id); (2) import-error exclusion (import_error = 0 and import_trip_error = 0); (3) valid stop identification (bs_id ≠ 0); and (4) direction selection (direction_code_id = 6). These filters reduce the archive from 9,197,694 to 229,421 records. Output integrity verified via SHA-256 checksum. **Stage 2: Temporal and weather join** — cleaned records joined to NOAA hourly weather by rounding departure timestamp to nearest hour. Stage 3: Empirical distribution extraction (unchanged). Stage 4: Train/validation split (unchanged, renumbered).
-
-### problem.tex — full rewrite for CapMetro
-
-**BEFORE**
-
-The public transportation system has long been a commodity that comes in the form of bus transport, train networks, and the like, with predetermined routes and fares. In Metro Manila, traffic congestion has long been a problem stemming from insufficient road infrastructure and poor traffic mitigation policies, resulting in an inefficient public transport system. One of the government's actions for an alternative transportation system that runs within the metropolitan area is the implementation of the EDSA Carousel in 2020.
-
-**AFTER**
-
-**High-frequency bus operation is a sequential control problem: a holding or stop-skipping decision changes the headways, queues, loads, and downstream dwell times encountered by later buses.** Fixed timetables cannot adapt after these quantities depart from their planned values. **The empirical case is CapMetro Rapid Route 801 in Austin, Texas.** CapMetro's public APC dataset covers July–December 2021 and contains event timestamps, route and direction codes, stop IDs, boarding and alighting counts, onboard load, dwell time, revenue travel time and distance, event coordinates, and quality indicators. **The one-direction study subset uses direction code 6 and contains 229,421 clean stop events, 184 service-day codes, and 29 distinct stop IDs.**
-
-**Why:** E1C1 ("Update manuscript with proposed setup and discussion of dataset"), E2C5 ("Explain what the dataset looks like"), E4C22 ("Describe dataset contents explicitly") — all three previously blocked on dataset access. Dataset now verified locally (229,421 clean rows, SHA-256 confirmed). The broader EDSA-to-CapMetro pivot was done on Jared's branch and adopted after a full audit.
+**Why:** the subtitle was added silently during the Texas pivot and never surfaced for approval. Asked the user directly; they said not to change the title. Reverted to exactly the title CLAUDE.md documents.
 
 ---
 
