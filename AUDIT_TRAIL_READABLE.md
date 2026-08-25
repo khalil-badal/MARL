@@ -164,7 +164,7 @@ Four stochastic generators inject variability into the Python environment..."
 ---
 
 ## 2026-08-06 — E3C15 — methods.tex, Section 3.2.4 (end)
-**Status:** ACTIVE
+**Status:** ACTIVE (structure) — the parameter-summary table this entry added still exists, but several of its VALUES were later changed by the 2026-08-24 Texas pivot. The AFTER table below shows the CURRENT (post-pivot) values, since that is what a rewriter works from. On 2026-08-06 the table originally read differently: total stop count was 24 (sourced from "Introduction, Section 1.2.2"), not 29; the derived travel-time rows were sourced from the "SafeTravelPH dataset," not "CapMetro rev_seconds"; and the swept parameters were named "Weather disturbance intensity / Demand scaling / Traffic-speed scaling" rather than the current "Synthetic severe-weather intensity / Demand-surge scale / Traffic-speed stress scale." See the Texas pivot entry (methods.tex) for those value changes.
 
 **BEFORE**
 
@@ -255,7 +255,7 @@ Current methods.tex Weather-Induced Anomalies subsection was rewritten in the Te
 ---
 
 ## 2026-08-06 — E4C21 — methods.tex, Sections 3.2.9 and 3.2.7
-**Status:** ACTIVE
+**Status:** ACTIVE (metric definitions in 3.2.9 unchanged); the observation-vector table in 3.2.7 still exists but two of its rows and its closing sentence were later modified by the 2026-08-24 Texas pivot. The table below shows the CURRENT (post-pivot) content. On 2026-08-06 it originally read differently: the sixth row was "Disturbance intensity flag — η (encoded) — Weather API / public incident alert — Active generator parameter" (not the "Weather exposure/stress flag" row shown below), the waiting-count simulation source was "Stop queue in bus model" (not "Simulated stop queue; not an APC field"), and the closing sentence was "In simulation, all observation features are generated synthetically... no real sensor data is consumed during training or evaluation." See the Texas pivot entry (methods.tex "Also changed" list) for those row changes.
 
 **BEFORE (3.2.9 opening)**
 
@@ -271,23 +271,23 @@ Current methods.tex Weather-Induced Anomalies subsection was rewritten in the Te
 
 (Then jumped straight to the "Action Space" subsection.)
 
-**AFTER (3.2.7 State Space, end of bullet list)**
+**AFTER (3.2.7 State Space, end of bullet list)** — current post-pivot table
 
 "Environmental flags: encoded indicators for the current disturbance intensity and any active downstream incident or breakdown.
 
 **Agent observation vector: features, symbols, and data sources (new table inserted here)**
 
-| Feature | Deployment Source | Simulation Source |
-|---|---|---|
-| Control stop index | Hardcoded list | Hardcoded list |
-| Forward headway | AVL feed | Event-driven bus model |
-| Backward headway | AVL feed | Event-driven bus model |
-| Onboard count | APC system | Event-driven bus model |
-| Waiting count | AFC terminal / camera | Simulated queue |
-| Disturbance flag | Weather API | Generator parameter |
-| Breakdown flag | Incident system | Generator event |
+| Feature | Symbol | Deployment Source | Simulation Source |
+|---|---|---|---|
+| Control stop index | — | Route map (static) | Hardcoded stop list |
+| Forward headway | h⁻ | AVL feed | Event-driven bus model |
+| Estimated backward headway | ĥ⁺ | AVL feed | Event-driven bus model |
+| Onboard passenger count | — | APC system | Running tally in bus model |
+| Waiting passenger count at stop | — | AFC terminal / platform sensors | Simulated stop queue; not an APC field |
+| Weather exposure/stress flag | w (encoded) | Weather API / public incident alert | Joined NOAA exposure or labeled synthetic W parameter |
+| Downstream incident / breakdown flag | b (binary) | Incident management system | Breakdown generator output |
 
-In simulation, all observation features are generated synthetically by the Python environment at each control event by querying the analytical bus model and the active stochastic generators; no real sensor data is consumed during training or evaluation.**"
+As the table shows, the environment generates each runtime observation from its evolving simulated state. Empirical APC/NOAA records calibrate the distributions and exposure strata before training; raw sensor rows are not streamed into the policy during an episode.**"
 
 **Why:** RTC comment 21 — include details on the metrics and description of observation features.
 
@@ -493,7 +493,7 @@ This entry is a preamble-only change (no manuscript prose changed). See AUDIT_TR
 ---
 
 ## 2026-08-06 — E1C2 — methods.tex, Section 3.2.5 (end)
-**Status:** ACTIVE
+**Status:** SUPERSEDED — the field-mapping table this entry added (`tab:field-mapping`) is now inside the `\iffalse` block the Texas pivot placed around the old EDSA Required Datasets section, so it is no longer compiled. The E1C2 requirement (map raw fields → derived parameter → MARL role) is instead met by the pivot's new compiled table `tab:field-mapping-texas` ("Verified CapMetro/NOAA fields and their modeling roles"); see the Texas pivot entry (methods.tex item 3). The AFTER below is the original 2026-08-06 content, retained for history.
 
 **BEFORE**
 
@@ -700,7 +700,7 @@ Every section was rewritten, not only the Rationale opening previously documente
    | W ablation | on | on | off | on | off |
    | B ablation | on | on | off | off | on |
 
-3. **New Required Datasets structure** (already partially documented in the original version of this entry, corrected below) — three numbered items (CapMetro APC event data, NOAA LCDv2 weather, historical schedule and fleet metadata) plus a new 9-row field-mapping table ("Verified CapMetro/NOAA fields and their modeling roles"). **Correction:** the previous version of this audit entry claimed a "Vehicle fleet data (supplementary). 2021 NTD Revenue Vehicle Inventory (NTD ID 60048)" bullet — this does not exist anywhere in the actual manuscript. The real third item reads: "Historical schedule and fleet metadata. A 2021-compatible GTFS snapshot is required for authoritative direction labels, stop names, route shape, and scheduled headway; a verified fleet source is required for capacity... direction 6 remains code-only and schedule/capacity parameters remain %TODO-DATA." No NTD citation exists in the current `.bib` or `.tex` files.
+3. **New Required Datasets structure** (already partially documented in the original version of this entry, corrected below) — three numbered items (CapMetro APC event data, NOAA LCDv2 weather, historical schedule and fleet metadata) plus a new 9-row field-mapping table ("Verified CapMetro/NOAA fields and their modeling roles," `tab:field-mapping-texas`). **This new table supersedes the E1C2 field-mapping table (`tab:field-mapping`, added 2026-08-06): the entire old EDSA Required Datasets block — including E1C2's table — was wrapped in `\iffalse` and is no longer compiled. See the E1C2 entry, now retagged SUPERSEDED.** **Correction:** the previous version of this audit entry claimed a "Vehicle fleet data (supplementary). 2021 NTD Revenue Vehicle Inventory (NTD ID 60048)" bullet — this does not exist anywhere in the actual manuscript. The real third item reads: "Historical schedule and fleet metadata. A 2021-compatible GTFS snapshot is required for authoritative direction labels, stop names, route shape, and scheduled headway; a verified fleet source is required for capacity... direction 6 remains code-only and schedule/capacity parameters remain %TODO-DATA." No NTD citation exists in the current `.bib` or `.tex` files.
 
 4. **Weather/traffic-speed composition reversed** (same change as introduction.tex above, applied directly to the disturbance-generator definitions):
    - **BEFORE (T):** "an episode-level scaling of corridor cruising speed, with standard deviation σ_s, representing everyday congestion friction. T governs inter-stop travel-time variability under ideal conditions."
@@ -715,7 +715,7 @@ Every section was rewritten, not only the Rationale opening previously documente
 
 7. **Evaluation run count recalculated**: the old computational-cost paragraph totaled "approximately 960 evaluation runs" (Stage A 120 + Stage B 480 + ablations 360). The new paragraph totals "**1,080 evaluation runs**" (Stage A 120 + observed-weather combined cell 120 + synthetic sweep 480 + ablations 360) — the extra 120-run "observed-weather combined cell" is new, reflecting the added observed/synthetic weather split.
 
-**Also changed (wording/framing, content-preserving, not reproduced in full):** chapter-opening paragraph (EDSA→Route 801 framing); Research Design section (activation-matrix language introduced); Simulation Environment section (SUMO role description); Control-Stop Selection (M=29 stops); Real-Time Data Incorporation paragraph (which real-world systems map to which synthetic signal); Data Pre-Processing Pipeline (3 stages→4 stages, previously documented); notation table (η's definition narrowed to "synthetic out-of-support" stress; N split into N and N_runs); Random Seed Control (named per-disturbance-class substreams introduced); observation-features table ("disturbance intensity flag"→"weather exposure/stress flag"; waiting-count note clarified as simulated, not an APC field); Action Space stop-skipping description (removed an unverified "near capacity" trigger condition since vehicle capacity is still %TODO-DATA); Proposed Learning Algorithm's CTDE explanation (clarified that centralization means one shared learner/replay buffer, not a joint-state actor); Training and Execution Protocol (matched to the activation matrix); No Control baseline description; Data Analysis Methods (N→N_runs, explicit bootstrap-interval requirement for heavy-tailed responses added); Timeline Feasibility paragraph (old fixed hour/GPU estimates replaced with "no wall-clock duration is claimed before the simulator is profiled").
+**Also changed (wording/framing, content-preserving, not reproduced in full):** chapter-opening paragraph (EDSA→Route 801 framing); Research Design section (activation-matrix language introduced); Simulation Environment section (SUMO role description); Control-Stop Selection (M=29 stops); Real-Time Data Incorporation paragraph (which real-world systems map to which synthetic signal); Data Pre-Processing Pipeline (rewritten from the old 3 EDSA stages — cleaning / empirical extraction / train-validation split — to 4 CapMetro stages: Stage 1 acquisition, integrity, and time normalization; Stage 2 sequence construction and empirical extraction; Stage 3 weather alignment and controlled estimation; Stage 4 chronological calibration/validation split. Note: the pivot left the lead-in sentence reading "proceeds in three stages" while listing four — a counting typo, fixed separately on 2026-08-25, see that entry below); notation table (η's definition narrowed to "synthetic out-of-support" stress; N split into N and N_runs); Random Seed Control (named per-disturbance-class substreams introduced); observation-features table ("disturbance intensity flag"→"weather exposure/stress flag"; waiting-count note clarified as simulated, not an APC field); Action Space stop-skipping description (removed an unverified "near capacity" trigger condition since vehicle capacity is still %TODO-DATA); Proposed Learning Algorithm's CTDE explanation (clarified that centralization means one shared learner/replay buffer, not a joint-state actor); Training and Execution Protocol (matched to the activation matrix); No Control baseline description; Data Analysis Methods (N→N_runs, explicit bootstrap-interval requirement for heavy-tailed responses added); Timeline Feasibility paragraph (old fixed hour/GPU estimates replaced with "no wall-clock duration is claimed before the simulator is profiled").
 
 ### main.tex
 
@@ -836,6 +836,23 @@ r(i,t+k) = −w₁ · (headway-irregularity term) − w₂ · (waiting-time term
 **The weights w₁, w₂, and w₃ are left as placeholders (TODO-VAL) and will be tuned through the Expected Output 2.1 sensitivity analysis. Each component is expressed as a non-positive penalty, allowing the agent to maximize its expected return by minimizing headway irregularity, passenger waiting time, and excessive or degenerate skipping. Therefore, what is fixed in this chapter is the overall reward structure and its sign convention, while the specific component formulas and relative weights will be finalized during implementation.**"
 
 **Why:** user-supplied second-pass writing-style rewrite of the reward-function mechanics text (originally N1, self-identified not RTC; first rewritten 2026-08-06). The equation itself is unchanged. The TODO-VAL placeholder tag was kept on the weights sentence per CLAUDE.md's convention, though the user's draft didn't include it explicitly.
+
+---
+
+## 2026-08-25 — Fix stage-count typo — methods.tex, Section 3.2.5 (Data Pre-Processing Pipeline)
+**Status:** ACTIVE
+
+**BEFORE**
+
+"Pre-processing proceeds in three stages."
+
+(Followed by four labeled stages: Stage 1 acquisition, integrity, and time normalization; Stage 2 sequence construction and empirical extraction; Stage 3 weather alignment and controlled estimation; Stage 4 chronological calibration/validation split.)
+
+**AFTER**
+
+"Pre-processing proceeds in **four** stages."
+
+**Why:** a counting typo introduced by the Texas pivot (commit `aff79b0`). The pivot rewrote the pipeline from the old three EDSA stages to four CapMetro stages (adding the weather-alignment stage) but left the lead-in sentence saying "three." Found during the 2026-08-25 full audit of Jared's pivot content. Pure typo fix — no stage content changed.
 
 ---
 

@@ -149,7 +149,7 @@
 ---
 
 ## 2026-08-06 — E3C15 — methods.tex, Section 3.2.4 (end)
-**Status:** ACTIVE
+**Status:** ACTIVE (structure) — the parameter-summary table still exists, but several of its values were changed by the 2026-08-24 Texas pivot (stop count 24→29; derived-parameter source SafeTravelPH→CapMetro `rev_seconds`; swept-parameter names revised). The diff below shows the table as ADDED on 2026-08-06; see the Texas pivot entry (methods.tex) for the later value changes.
 **Commit:** `01c49bf`
 
 ```diff
@@ -213,7 +213,7 @@
 ---
 
 ## 2026-08-06 — E4C21 — methods.tex, Sections 3.2.9 and 3.2.7
-**Status:** ACTIVE
+**Status:** ACTIVE (3.2.9 metric definitions unchanged); the 3.2.7 observation-vector table still exists but two rows and its closing sentence were later modified by the 2026-08-24 Texas pivot (the "Disturbance intensity flag η" row became a "Weather exposure/stress flag w" row; the waiting-count simulation source was reworded; the closing sentence was reworded). The diff below shows the table as ADDED on 2026-08-06; see the Texas pivot entry (methods.tex "Also changed" list) for the later row changes.
 **Commit:** `01c49bf`
 
 ```diff
@@ -491,7 +491,7 @@ Ten one-clause insertions, each adding a missing `\ref{}` to an existing sentenc
 ---
 
 ## 2026-08-06 — E1C2 — methods.tex, Section 3.2.5 (end)
-**Status:** ACTIVE
+**Status:** SUPERSEDED — the field-mapping table this entry added (`\label{tab:field-mapping}`) is now inside the `\iffalse` block the Texas pivot placed around the old EDSA Required Datasets section, so it is no longer compiled. The E1C2 requirement is instead met by the pivot's new compiled table `\label{tab:field-mapping-texas}`; see the Texas pivot entry (methods.tex). The diff below is the original 2026-08-06 content, retained for history.
 **Commit:** `ce79e06`
 
 ```diff
@@ -794,7 +794,7 @@ No `NTD2021Fleet` bib key exists in `thesis_refs.bib`; the line above never actu
 ```
 The extra 120 runs are a new "observed-weather combined cell," reflecting the added observed/synthetic weather split above.
 
-**Also changed (wording/framing, not reproduced in full diff):** chapter-opening paragraph; Research Design section; Simulation Environment section; Control-Stop Selection (M=29); Real-Time Data Incorporation paragraph; Data Pre-Processing Pipeline (3→4 stages, previously documented); notation table ($\eta$ narrowed to "synthetic out-of-support" stress; $N$ split into $N$ and $N_{\mathrm{runs}}$); Random Seed Control (named per-disturbance substreams); observation-features table ("disturbance intensity flag"→"weather exposure/stress flag"); Action Space stop-skipping description (removed unverified "near capacity" trigger); Proposed Learning Algorithm's CTDE explanation; Training and Execution Protocol; No Control baseline description; Data Analysis Methods ($N$→$N_{\mathrm{runs}}$, bootstrap-interval requirement added); Timeline Feasibility paragraph.
+**Also changed (wording/framing, not reproduced in full diff):** chapter-opening paragraph; Research Design section; Simulation Environment section; Control-Stop Selection (M=29); Real-Time Data Incorporation paragraph; Data Pre-Processing Pipeline (rewritten from 3 EDSA stages to 4 CapMetro stages: acquisition/integrity/time-normalization; sequence construction and empirical extraction; weather alignment and controlled estimation; chronological calibration/validation split — the pivot left the lead-in reading "three stages" while listing four, a typo fixed 2026-08-25, see entry below); notation table ($\eta$ narrowed to "synthetic out-of-support" stress; $N$ split into $N$ and $N_{\mathrm{runs}}$); Random Seed Control (named per-disturbance substreams); observation-features table ("disturbance intensity flag"→"weather exposure/stress flag"); Action Space stop-skipping description (removed unverified "near capacity" trigger); Proposed Learning Algorithm's CTDE explanation; Training and Execution Protocol; No Control baseline description; Data Analysis Methods ($N$→$N_{\mathrm{runs}}$, bootstrap-interval requirement added); Timeline Feasibility paragraph.
 
 ### main.tex
 
@@ -921,6 +921,24 @@ Plus 6 new entries (previously documented correctly): `TexasCapMetroAPC2021`, `C
 ```
 
 **Why:** user-supplied second-pass writing-style rewrite of the reward-function mechanics text (originally N1, self-identified not RTC; first rewritten 2026-08-06). The equation itself is unchanged. The TODO-VAL placeholder tag was kept on the weights sentence per CLAUDE.md's convention, though the user's draft didn't include it explicitly.
+
+---
+
+## 2026-08-25 — Fix stage-count typo — methods.tex, Section 3.2.5 (Data Pre-Processing Pipeline)
+**Status:** ACTIVE
+**Commit:** (uncommitted — pending)
+
+```diff
+- Pre-processing proceeds in three stages.
++ Pre-processing proceeds in four stages.
+
+  \textit{Stage 1: acquisition, integrity, and time normalization.} [...]
+  \textit{Stage 2: sequence construction and empirical extraction.} [...]
+  \textit{Stage 3: weather alignment and controlled estimation.} [...]
+  \textit{Stage 4: chronological calibration/validation split.} [...]
+```
+
+**Why:** a counting typo introduced by the Texas pivot (commit `aff79b0`). The pivot rewrote the pipeline from the old three EDSA stages to four CapMetro stages (adding the weather-alignment stage) but left the lead-in sentence saying "three." Found during the 2026-08-25 full audit of Jared's pivot content. Pure typo fix — no stage content changed.
 
 ---
 

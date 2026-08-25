@@ -276,7 +276,7 @@ A short empirical observation window cannot reliably resolve the variance of a h
 \subsubsection{Data Pre-Processing Pipeline}
 \label{subsec:data-pipeline}
 
-Pre-processing proceeds in three stages.
+Pre-processing proceeds in four stages.
 
 \textit{Stage 1: acquisition, integrity, and time normalization.} The pipeline records the Socrata query, row count, 47-field schema, file size, and SHA-256 hash. It applies the declared route/error/stop/direction filters before modeling. APC compact timestamps are parsed as Austin wall-clock time; NOAA LCDv2 local-standard timestamps are assigned fixed UTC$-06{:}00$ and converted to \texttt{America/Chicago}. Ambiguous fall-back APC times are counted and assigned a declared fold rather than silently duplicated. Records with invalid timestamps or non-positive segment time/distance are excluded only from the derivation that requires those values, not from unrelated demand/dwell summaries.
 
