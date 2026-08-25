@@ -76,9 +76,17 @@ away. It lives in two places:
    wrapped in LaTeX `\iffalse … \fi` blocks. That means it's still in the file,
    still readable, but **does not appear in the compiled PDF**. Think of it as a
    light switch that's currently off.
-2. **A full backup folder: `EDSA Ver/`.** This holds complete copies of every
-   pre-pivot `.tex` file (the whole EDSA manuscript as it was), plus the old
-   `thesis_refs.bib`. It's our safety net in case direction changes again.
+2. **A full backup folder: `EDSA Ver/`.** This is the **EDSA manuscript with the
+   panel revisions applied and the SafeTravelPH (EDSA) dataset still in place**,
+   awaiting acquisition of the SafeTravelPH data — i.e., close to the June 2024
+   defense manuscript but with all the RTC-requested revisions from 2026-08-06
+   already addressed. It is our safety net / recovery point for the EDSA
+   direction.
+   - *Note (2026-08-25):* an earlier snapshot of this folder had accidentally
+     picked up CapMetro dataset text in its dataset sections during the
+     transition. That was cleaned out — `EDSA Ver/` now contains **no CapMetro /
+     Texas / Austin references**; its dataset is SafeTravelPH throughout, exactly
+     as an EDSA-with-revisions version should be.
 
 The EDSA citations (DOTr ridership, EDSA breakdown reporting, Philippine
 rainfall studies, typhoon service suspensions) are **still in the bibliography**,

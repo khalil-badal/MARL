@@ -162,19 +162,13 @@ The MARL framework is trained and evaluated on a single stream of input data pre
 
 \begin{itemize}
 
-\item \textbf{Corridor bus operational data (primary).} The primary operational dataset is the Capital Metropolitan Transportation Authority (CapMetro) Automatic Passenger Counter (APC) raw archive for July--December 2021~\cite{TexasCapMetroAPC2021}, published on the Texas Open Data Portal (Socrata dataset ID \texttt{im6q-3pc9}). The full archive contains 9,197,694 stop-level event records across 47 fields. Each record represents a single bus stop visit and includes: calendar and temporal fields (\texttt{service\_date}, \texttt{calendar\_id}, \texttt{day\_of\_week}); route and trip identifiers (\texttt{route\_id}, \texttt{current\_route\_id}, \texttt{trip\_id}, \texttt{direction\_code\_id}); stop-level spatial data (\texttt{bs\_id}, \texttt{stop\_sequence}, GPS coordinates); passenger activity (\texttt{ons}, \texttt{offs}, \texttt{load}, \texttt{max\_load}); temporal measurements (\texttt{departure\_dtm}, \texttt{map\_data\_tmstmp}, scheduled versus actual arrival differences); vehicle identifiers (\texttt{vehicle\_id}); and data quality flags (\texttt{import\_error}, \texttt{import\_trip\_error}).
+\item \textbf{Corridor bus operational data.} A per-trip record of EDSA Carousel bus operation along the study sub-corridor, collected over a continuous observation window of at least two weeks. The required fields are GPS-tracked vehicle location, boarding and alighting events, passenger occupancy, operating speed, and \textit{dwell time} at each stop, the dwell time being the interval a bus spends stationary at a stop serving passengers, measured from the moment the doors open to the moment they close and the bus is ready to depart, exclusive of any holding time subsequently imposed by the controller. These records yield the empirical distributions of bus cruising speed, inter-stop travel time, and demand under ideal operating conditions, used both to calibrate SUMO and to define the baseline operating point of the stochastic generators. The baseline operating point for this study is established from a crowdsourced operational record collected from the EDSA Busway during July 2023 through the SafeTravelPH mobile application.
 
-This study uses the subset corresponding to MetroRapid Route 801 (North Lamar/South Congress BRT corridor), direction code 6 (northbound), operated by New Flyer Xcelsior XDE60 articulated buses with a crush capacity of approximately 123 passengers~\cite{NTD2021Fleet,CapMetroRapid801}. The northbound direction serves 29 stops over a 20-mile corridor with dedicated bus lanes and traffic signal priority, making it structurally analogous to a barrier-separated busway for the purposes of this study's MARL formulation.
-
-After cleaning (Section~\ref{subsec:data-pipeline}), the usable subset comprises 229,421 stop-level event records spanning 184 service days with a total of 420,201 recorded boardings. The six-month observation window provides sufficient coverage to estimate per-(stop, time-of-day) demand distributions and inter-stop travel-time distributions with adequate sample sizes for the calibration protocol described in Section~3.2.3.
-
-\item \textbf{Weather data (secondary).} Hourly surface observations from NOAA Local Climatological Data Version~2~\cite{NOAALCDv2}, covering the same July--December 2021 period. The primary station is Camp Mabry (USW00013958), located within the Route 801 service area; Austin-Bergstrom International Airport (USW00013904) serves as a secondary source for gap-filling. Fields include hourly precipitation, temperature, wind speed, and visibility, which are joined to the APC records by timestamp to enable the identification of weather-affected service days for the weather-disturbance generator's empirical anchoring.
-
-\item \textbf{Vehicle fleet data (supplementary).} The 2021 National Transit Database Revenue Vehicle Inventory~\cite{NTD2021Fleet} (NTD ID 60048) provides per-vehicle capacity, age, and propulsion type for the CapMetro fleet, used to confirm the crush-load capacity parameter $C$ in the agent observation vector.
+%A crowdsourced operational dataset of this form, for example, data collected from the EDSA Busway via the SafeTravelPH mobile application, provides a representative model of the required structure. Should bus-volume coverage prove insufficient for the GEH validation step, supplementary records may be requested from MMDA, DOTr, or the involved bus operators under the Freedom of Information process.
 
 \end{itemize}
 
-Table~\ref{tab:field-mapping} maps each required raw field to the parameter derived from it and the MARL component that parameter feeds into, connecting the data requirements above to the disturbance generators (Section~\ref{subsec:stochastic-vars}), the control-stop selection criteria (Section~\ref{subsec:control-stop-selection}), and the agent observation vector (Section~\ref{subsec:state-space}). All listed fields are present in the CapMetro APC archive; specific distributional statistics (per-segment $\mu$, $\sigma$) will be computed during the SUMO calibration phase described in Section~3.2.3.
+Table~\ref{tab:field-mapping} maps each required raw field to the parameter derived from it and the MARL component that parameter feeds into, connecting the data requirements above to the disturbance generators (Section~\ref{subsec:stochastic-vars}), the control-stop selection criteria (Section~\ref{subsec:control-stop-selection}), and the agent observation vector (Section~\ref{subsec:state-space}). The mapping reflects the study's design intent, not properties of a processed dataset; specific statistics remain \%TODO-DATA pending dataset acquisition.
 
 \begin{table}[htbp]
 \centering
@@ -193,27 +187,27 @@ Table~\ref{tab:field-mapping} maps each required raw field to the parameter deri
 \textbf{Raw Field} & \textbf{Derived Parameter} & \textbf{MARL Component} \\
 \midrule
 
-\texttt{departure\_dtm}, GPS coordinates &
+GPS-tracked vehicle location &
 Per-segment inter-stop travel time distribution ($\mu$, $\sigma$) &
 SUMO speed calibration (RMSE, Section~\ref{subsec:stochastic-vars}); anchors the traffic-speed generator ($\sigma_s$) and the weather generator's baseline mean ($\mu$) \\
 
-\texttt{ons} (boardings per stop visit) &
+Boarding events (per stop) &
 Per-(stop, time-of-day) baseline demand rate &
 Demand surge generator baseline ($\sigma_d$); waiting-passenger-count feature in the agent's local observation \\
 
-\texttt{offs} (alightings per stop visit) &
+Alighting events (per stop) &
 Through-passenger volume per stop &
 Control-stop selection criterion 3 (low through-volume preference, Section~\ref{subsec:control-stop-selection}) \\
 
-\texttt{load}, \texttt{max\_load} &
+Passenger occupancy &
 Per-segment load profile &
 Onboard-passenger-count feature in the agent's local observation; dwell-time estimation \\
 
-Derived from consecutive \texttt{departure\_dtm} &
+Operating speed &
 Per-segment baseline cruising speed &
 SUMO bus-volume calibration (GEH); traffic-speed generator baseline ($\sigma_s$) \\
 
-Derived from \texttt{stop\_sequence} timing &
+Dwell time at each stop &
 Per-(stop, time-of-day) dwell time distribution &
 Event-driven bus model, used between control events to advance the simulation clock \\
 
@@ -221,22 +215,20 @@ Event-driven bus model, used between control events to advance the simulation cl
 \end{tabularx}
 \end{table}
 
-Severe-weather conditions are not estimated from operational data alone. The NOAA weather join (Stage~2 of the pipeline) identifies which service days experienced measurable precipitation and provides empirical evidence that rain events occur within the observation period, but the severe-weather generator's disturbance magnitudes are swept across a range of coefficient-of-variation values anchored to the validated lognormal form of Patil et al.~\cite{Patil2025Conformal} rather than calibrated to a single corridor-specific severe-weather sample.
+Severe-weather conditions are not estimated from operational data in this study but are injected as a controlled experimental variable, with disturbance magnitudes anchored to validated literature values rather than to a corridor-specific severe-weather sample.
 
-Because the disturbance conditions are random by construction, they are not drawn from any single fixed dataset: each Monte Carlo run generates a fresh, independently seeded realization of demand, traffic-speed, weather, and breakdown disturbances. The empirical APC dataset is required only to fix the \textit{baseline} (ideal-condition) operating point against which these random disturbances are layered; the held-out validation split (Stage~4) confirms that the calibrated baseline generalizes beyond the records used to tune it. The full disturbance parameterization is described in Section~\ref{subsec:stochastic-vars}.
+A short empirical observation window cannot reliably resolve the variance of a heavy-tailed severe-weather distribution at per-segment granularity, and a swept-disturbance design characterizes controller performance across a range of conditions rather than at a single uncertain calibration point. Because the disturbance conditions are random by construction, they are not drawn from any single fixed dataset: each Monte Carlo run generates a fresh, independently seeded realization of demand, traffic-speed, weather, and breakdown disturbances. The single empirical dataset is required only to fix the \textit{baseline} (ideal-condition) operating point against which these random disturbances are layered; the held-out validation split (Stage 3 below) confirms that the calibrated baseline generalizes beyond the records used to tune it. The full disturbance parameterization is described in Section~\ref{subsec:stochastic-vars}.
 
 \subsubsection{Data Pre-Processing Pipeline}
 \label{subsec:data-pipeline}
 
-Pre-processing proceeds in four stages.
+Pre-processing proceeds in three stages.
 
-\textit{Stage 1: Filtering and validation.} The raw APC archive is filtered to the study subset using four sequential rules: (1)~route consistency (\texttt{current\_route\_id} equals \texttt{route\_id}), which removes records where the vehicle was reassigned mid-trip; (2)~import-error exclusion (\texttt{import\_error}~$= 0$ and \texttt{import\_trip\_error}~$= 0$), which removes records flagged by the APC system as unreliable; (3)~valid stop identification (\texttt{bs\_id}~$\neq 0$), which removes records with unresolved stop references; and (4)~direction selection (\texttt{direction\_code\_id}~$= 6$), which isolates the northbound service direction. These filters reduce the archive from 9,197,694 records to 229,421 records spanning 184 service days and 29 stop IDs, with 420,201 total boardings. Output integrity is verified by comparing the SHA-256 checksum of the cleaned file against an independently produced reference.
+\textit{Stage 1: Cleaning.} Trip records with missing GPS coordinates, missing timestamps, negative inter-stop times, or trips that fail integrity checks (for example, a later stop served before an earlier one) are dropped. Remaining records are normalized to a common time zone. Because the operational observation window is short (on the order of two weeks), the data cannot support separate weekend or holiday demand profiles --- a window of this length yields too few weekend days and typically no holidays to estimate distinct calendars reliably. Records are therefore filtered to regular weekdays and binned by time-of-day, which is the calendar dimension that drives demand and travel-time variation within the modeled operating day. The restriction to weekday operation is recorded as a scope limitation.
 
-\textit{Stage 2: Temporal and weather join.} Cleaned stop-visit records are joined to NOAA hourly weather observations~\cite{NOAALCDv2} by rounding the departure timestamp to the nearest hour and matching to the Camp Mabry station record. This join attaches precipitation intensity, temperature, and wind speed to each stop visit, enabling the identification of weather-affected service days for the empirical anchoring of the severe-weather generator (Section~\ref{subsec:stochastic-vars}).
+\textit{Stage 2: Empirical distribution extraction.} For each (segment, time-of-day) bin, the cleaned operational data yield the mean $\mu$ and standard deviation $\sigma$ of inter-stop travel time under baseline operating conditions, producing the baseline coefficient of variation $CV_0 = \sigma / \mu$ used to anchor the disturbance generators. Boarding and alighting counts per (stop, time-of-day) bin yield the baseline demand profile. These statistics are serialized to disk as parameter files that the Python environment loads at initialization.
 
-\textit{Stage 3: Empirical distribution extraction.} For each (segment, time-of-day) bin, the cleaned operational data yield the mean $\mu$ and standard deviation $\sigma$ of inter-stop travel time under baseline operating conditions, producing the baseline coefficient of variation $CV_0 = \sigma / \mu$ used to anchor the disturbance generators. Boarding and alighting counts per (stop, time-of-day) bin yield the baseline demand profile. These statistics are serialized to disk as parameter files that the Python environment loads at initialization.
-
-\textit{Stage 4: Train/validation split for calibration.} The calibration data are split chronologically into a calibration set, used to tune SUMO parameters until the GEH and RMSE targets are met, and a held-out validation set, used to confirm that the calibrated environment generalizes beyond the tuning data.
+\textit{Stage 3: Train/validation split for calibration.} The calibration data are split chronologically into a calibration set, used to tune SUMO parameters until the GEH and RMSE targets are met, and a held-out validation set, used to confirm that the calibrated environment generalizes beyond the tuning data.
 
 The MARL agents are not trained on these raw datasets directly. They are trained on synthetic state vectors $s_{i,t}$ produced by the Python environment at each control event. Each $s_{i,t}$ is assembled at runtime by querying the analytical bus model and is consumed once by the policy network before being discarded. There is no persistent training dataset of state-action transitions on disk other than the standard replay buffer used by the learning algorithm.
 
