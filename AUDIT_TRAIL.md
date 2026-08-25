@@ -944,7 +944,7 @@ Plus 6 new entries (previously documented correctly): `TexasCapMetroAPC2021`, `C
 
 ## 2026-08-25 — Complete the Patil2025Conformal citation fix — introduction.tex, Section 1.2 (The Disturbance Gap)
 **Status:** ACTIVE
-**Commit:** (uncommitted — pending)
+**Commit:** `c4372f3`
 
 ```diff
 - \textit{This study addresses the obstacle by adopting the lognormal travel-time parameterization that Patil et al.\ \cite{Patil2025Conformal} validated against INRIX freeway data via the Kolmogorov-Smirnov test, and then sweeping the disturbance intensity across a range of validated and extrapolated CV values rather than fitting a single point estimate. [...]}
