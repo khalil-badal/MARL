@@ -926,7 +926,7 @@ Plus 6 new entries (previously documented correctly): `TexasCapMetroAPC2021`, `C
 
 ## 2026-08-25 — Fix stage-count typo — methods.tex, Section 3.2.5 (Data Pre-Processing Pipeline)
 **Status:** ACTIVE
-**Commit:** (uncommitted — pending)
+**Commit:** `519036c`
 
 ```diff
 - Pre-processing proceeds in three stages.
