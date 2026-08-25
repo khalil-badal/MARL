@@ -856,4 +856,19 @@ r(i,t+k) = −w₁ · (headway-irregularity term) − w₂ · (waiting-time term
 
 ---
 
+## 2026-08-25 — Complete the Patil2025Conformal citation fix — introduction.tex, Section 1.2 (The Disturbance Gap)
+**Status:** ACTIVE
+
+**BEFORE**
+
+"This study addresses the obstacle by adopting the lognormal travel-time parameterization that Patil et al. validated against **INRIX freeway data** via the Kolmogorov-Smirnov test, and then sweeping the disturbance intensity across a range of validated and extrapolated CV values rather than fitting a single point estimate."
+
+**AFTER**
+
+"This study addresses the obstacle by adopting the lognormal travel-time parameterization that Patil et al. validated **for an INRIX-anchored urban-arterial corridor** via the Kolmogorov-Smirnov test, and then sweeping the disturbance intensity across a range of validated and extrapolated CV values rather than fitting a single point estimate."
+
+**Why:** the 2026-08-06 "Citation fix: Patil2025Conformal" entry established (against the actual paper, whose Table V classifies the route as "Local, Minor/Principal Arterials") that Patil et al.'s corridor is an urban arterial, NOT a freeway — and that the KS test checks the simulated distribution's shape rather than being a direct comparison against INRIX data. That fix only corrected methods.tex; this introduction.tex sentence still said "INRIX freeway data," contradicting both the corrected methods.tex and another sentence in the same introduction ("Patil et al. validate a lognormal travel-time form for simulated arterial scenarios"). The error predates the Texas pivot; it was found during the 2026-08-25 full read-through. This edit completes the original citation fix and removes the internal contradiction.
+
+---
+
 *Nothing follows.*
