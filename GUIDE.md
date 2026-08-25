@@ -87,6 +87,10 @@ away. It lives in two places:
      transition. That was cleaned out — `EDSA Ver/` now contains **no CapMetro /
      Texas / Austin references**; its dataset is SafeTravelPH throughout, exactly
      as an EDSA-with-revisions version should be.
+   - The folder has its **own dedicated audit trail** documenting that cleanup:
+     `EDSA Ver/AUDIT_TRAIL.md` (LaTeX/Overleaf diff form) and
+     `EDSA Ver/AUDIT_TRAIL_READABLE.md` (plain English). These are separate from
+     the root-level audit trails, which track the live Texas manuscript.
 
 The EDSA citations (DOTr ridership, EDSA breakdown reporting, Philippine
 rainfall studies, typhoon service suspensions) are **still in the bibliography**,
