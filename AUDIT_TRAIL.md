@@ -735,7 +735,39 @@ This supersedes the N2 Significance addition (2026-08-06).
 ```
 This supersedes the E3C14 addition (2026-08-06) — the physically-separated-busway argument does not appear in the replacement.
 
-Research Objectives (Main Objective, all three Specific Objectives, Expected Outputs 1.1–3.2) also fully reworded around Route 801 direction code 6 and the activation-matrix design; not reproduced here since no prior audit entry claimed this content.
+**Research Objectives — verified in full on 2026-08-26 after a teammate (Jared) flagged that the objectives looked changed.**
+
+```diff
+  \subsection{Main Objective}
+- To investigate the performance of a developed Multi-Agent Reinforcement Learning (MARL) scheduling model for dynamic bus scheduling under non-ideal traffic conditions on a calibrated simulation of the EDSA Carousel corridor.
++ To evaluate a parameter-sharing Multi-Agent Reinforcement Learning scheduling model under baseline and disturbed operating conditions in a public-data-calibrated simulation of CapMetro Rapid Route 801 direction code 6.
+
+  \subsection{Specific Objectives}
+- \item \textbf{Environment Construction:} To construct a stochastic traffic simulation environment representing a defined traffic area.
+- \textbf{Expected Output 1.1:} A simulation model of a defined operational scope, validated against empirical traffic data to establish an environment that accurately approximates real-world traffic.
+- \textbf{Expected Output 1.2:} An environment simulator capable of introducing environmental variability through adjustable parameters to simulate non-ideal operating conditions.
++ \item \textbf{Environment construction:} construct a reproducible Route 801 simulation from the cleaned CapMetro APC subset and temporally aligned NOAA weather observations.
++ \textbf{Expected Output 1.1:} A documented acquisition and preprocessing pipeline with source URLs, queries, cleaning rules, row counts, checksums, field mappings, time-zone handling, and unresolved data gates.
++ \textbf{Expected Output 1.2:} A corridor model validated against held-out empirical stop-event counts and segment travel times, with any schedule- or capacity-dependent value left as \%TODO-DATA until its source is verified.
++ \textbf{Expected Output 1.3:} Configurable demand-surge, observed-weather, synthetic severe-weather, and synthetic breakdown components whose activation is explicit in each experiment.
+
+- \item \textbf{Algorithm Implementation:} To develop and implement a Multi-Agent Reinforcement Learning (MARL) approach for dynamic bus scheduling.
+- \textbf{Expected Output 2.1:} A formulated agent architecture defining individual bus units as agents with discrete state and action space with a continuous reward function that punishes irregularities and passenger service delays.
++ \item \textbf{Algorithm implementation:} develop a shared-parameter DDQN bus-control policy with per-agent local observations, per-agent rewards, a shared replay buffer, and decentralized execution.
++ \textbf{Expected Output 2.1:} A fully specified observation, action, reward, transition, and training protocol, including reward-weight sensitivity analysis and reproducible random-seed control.
+
+- \item \textbf{Performance Evaluation Under Ideal and Non-Ideal Conditions:} To evaluate the scheduling performance of the MARL approach under both ideal operating conditions and non-ideal conditions.
+- \textbf{Expected Output 3.1:} A quantitative and statistical assessment of MARL scheduling performance under ideal conditions, measuring passenger waiting time, travel time, and headway coefficient of variation, tested against baseline methods.
+- \textbf{Expected Output 3.2:} A quantitative and statistical assessment of MARL scheduling performance under non-ideal conditions, measuring passenger waiting time, travel time, and headway coefficient of variation, reported as degradation relative to ideal-conditions performance.
++ \item \textbf{Performance evaluation:} compare MARL with No Control, Forward Headway, and Even Headway controllers under a declared baseline, combined-disturbance test, and single-disturbance ablations.
++ \textbf{Expected Output 3.1:} Matched-seed estimates and uncertainty intervals for simulated passenger waiting time, bus travel time, and headway coefficient of variation under the baseline evaluation.
++ \textbf{Expected Output 3.2:} Matched-seed robustness estimates under combined and isolated demand, weather, and breakdown stress, reported relative to the baseline without labeling synthetic intensities as observed meteorological categories.
+```
+
+**Verification performed (2026-08-26):** the underlying three-part objective structure (build environment, implement algorithm, evaluate performance) and the three response metrics (waiting time, travel time, headway CV) are unchanged. Checked two items that could look like scope creep against the defense manuscript's own `methods.tex`:
+- `DDQN`/`Double Deep Q` appears 14 times, `parameter sharing`/`CTDE` 6 times, and `No Control`/`Forward Headway`/`Even Headway` 6 times in the **defense manuscript's** methods.tex — the algorithm and baselines named in the live objectives were already the study's design at defense time; the objectives text is catching up to the methods chapter, not introducing anything new.
+- `sensitivity analysis`/`EO 2.1` and a `Random Seed Control` subsection were also already present in the defense's methods.tex — same conclusion.
+- The one genuinely new deliverable is EO 1.1 (documented acquisition/preprocessing pipeline), which did not exist in the defense version. It directly answers RTC comments E1C1/E2C5/E4C22 (dataset description requirements), so it is a deliberate, panel-mandated addition, not an arbitrary change.
 
 ### methods.tex — extensive rewrite across nearly every subsection
 
